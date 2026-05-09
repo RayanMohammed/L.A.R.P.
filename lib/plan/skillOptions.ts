@@ -1,3 +1,10 @@
+import {
+  CAREER_FIELDS,
+  DEFAULT_FIELD_ID,
+  type FieldId,
+  type FieldSkillGroup,
+} from "./fields";
+
 /**
  * Curated skill / experience tags shown in step 2 of the intake.
  * Designed for first-year reality: lots of "I took an intro class" and
@@ -9,88 +16,39 @@ export type SkillGroup = {
   options: string[];
 };
 
-export const SKILL_GROUPS: SkillGroup[] = [
+const SHARED_SKILL_GROUPS: SkillGroup[] = [
   {
-    label: "Coding",
-    options: [
-      "intro CS course (CSE 8A / 11)",
-      "data structures course (CSE 12 / 30)",
-      "Python",
-      "JavaScript or TypeScript",
-      "Java",
-      "C or C++",
-      "HTML / CSS",
-      "SQL",
-      "git basics",
-      "built a personal website",
-      "completed an online tutorial / bootcamp",
-    ],
-  },
-  {
-    label: "Data & analysis",
-    options: [
-      "Excel or Google Sheets",
-      "Tableau / Power BI / Looker",
-      "pandas or R",
-      "intro statistics course",
-      "Kaggle or DataFest project",
-    ],
-  },
-  {
-    label: "Design & creative",
-    options: [
-      "Figma basics",
-      "Canva or Adobe",
-      "wrote for a publication",
-      "ran a social media account with real followers",
-      "edited video",
-    ],
-  },
-  {
-    label: "Research & lab",
-    options: [
-      "joined a research lab",
-      "lab course (chem, bio, physics)",
-      "read a research paper end-to-end",
-      "presented at a poster session",
-    ],
-  },
-  {
-    label: "Leadership & community",
-    options: [
-      "led a high-school club",
-      "ran an event (>20 people)",
-      "tutored or TA'd",
-      "founded something",
-      "volunteered consistently for a cause",
-      "competitive sport / performing arts at a serious level",
-    ],
-  },
-  {
-    label: "Work & money",
+    label: "Transferable signals",
     options: [
       "had a paid job (any kind)",
-      "freelanced or sold something",
-      "managed a budget for an org",
       "customer service experience",
+      "volunteered consistently for a cause",
+      "competitive sport / performing arts at a serious level",
+      "founded something",
     ],
   },
   {
-    label: "Tools & misc",
-    options: [
-      "comfortable on the command line",
-      "used Linux",
-      "AWS / GCP / Azure (free tier)",
-      "soldered or wired a circuit",
-      "CAD (Fusion / SolidWorks)",
-      "spoke at a meetup or conference",
-    ],
-  },
-  {
-    label: "Honest answers",
+    label: "If you're not sure, it's okay to click one of these options.",
     options: [
       "nothing yet — first quarter",
       "I'm not sure what counts",
     ],
   },
 ];
+
+export function getSkillGroupsForField(
+  fieldId: FieldId | null | undefined,
+): SkillGroup[] {
+  const field =
+    CAREER_FIELDS.find((candidate) => candidate.id === fieldId) ??
+    CAREER_FIELDS.find((candidate) => candidate.id === DEFAULT_FIELD_ID);
+
+  return [...toSkillGroups(field?.skillGroups ?? []), ...SHARED_SKILL_GROUPS];
+}
+
+function toSkillGroups(groups: FieldSkillGroup[]): SkillGroup[] {
+  return groups.map((group) => ({
+    label: group.label,
+    options: group.options,
+  }));
+}

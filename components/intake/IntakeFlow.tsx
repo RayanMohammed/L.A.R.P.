@@ -1,24 +1,27 @@
 "use client";
 
 import { useState } from "react";
+import { Dashboard } from "@/components/dashboard/Dashboard";
 import { LoadingPlan } from "@/components/intake/LoadingPlan";
-import { PlanCard } from "@/components/intake/PlanCard";
 import { Stepper } from "@/components/intake/Stepper";
 import { StepRole } from "@/components/intake/StepRole";
 import { StepSkills } from "@/components/intake/StepSkills";
 import { TelemetryAsciiBanner } from "@/components/telemetry/TelemetryAsciiBanner";
+import {
+  getCareerField,
+  getDefaultArchetypeIdForField,
+  type FieldId,
+} from "@/lib/plan/fields";
 import type { PlanResponse } from "@/lib/plan/types";
 
 type IntakeState = {
-  roleId: string | null;
-  freeText: string;
+  fieldId: FieldId | null;
   skills: string[];
   context: string;
 };
 
 const EMPTY_STATE: IntakeState = {
-  roleId: null,
-  freeText: "",
+  fieldId: null,
   skills: [],
   context: "",
 };
@@ -38,8 +41,7 @@ export function IntakeFlow() {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          targetRoleId: next.roleId ?? undefined,
-          targetRoleFreeText: next.roleId ? undefined : next.freeText,
+          targetRoleId: getDefaultArchetypeIdForField(next.fieldId),
           currentSkills: next.skills,
           context: next.context || undefined,
         }),
@@ -76,10 +78,9 @@ export function IntakeFlow() {
 
       {step === 1 ? (
         <StepRole
-          initialRoleId={intake.roleId}
-          initialFreeText={intake.freeText}
-          onSubmit={({ roleId, freeText }) => {
-            setIntake((s) => ({ ...s, roleId, freeText }));
+          initialFieldId={intake.fieldId}
+          onSubmit={({ fieldId }) => {
+            setIntake((s) => ({ ...s, fieldId, skills: [] }));
             setStep(2);
           }}
         />
@@ -91,6 +92,7 @@ export function IntakeFlow() {
         ) : (
           <>
             <StepSkills
+              fieldId={intake.fieldId}
               initialSkills={intake.skills}
               initialContext={intake.context}
               onBack={() => setStep(1)}
@@ -113,7 +115,13 @@ export function IntakeFlow() {
       ) : null}
 
       {step === 3 && plan ? (
-        <PlanCard plan={plan} onStartOver={startOver} />
+        <Dashboard
+          field={getCareerField(intake.fieldId)}
+          plan={plan}
+          selectedSkills={intake.skills}
+          context={intake.context}
+          onStartOver={startOver}
+        />
       ) : null}
     </div>
   );

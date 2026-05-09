@@ -2,7 +2,7 @@ type StepperProps = {
   current: 1 | 2 | 3;
 };
 
-const STEPS = ["Pick a target", "Map what you have", "Your week"];
+const STEPS = ["Pick a field", "Map what you have", "Dashboard"];
 
 export function Stepper({ current }: StepperProps) {
   return (

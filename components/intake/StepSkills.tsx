@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { t, type TranslationKey } from "@/lib/i18n/translations";
-import { SKILL_GROUPS } from "@/lib/plan/skillOptions";
+import { getCareerField, type FieldId } from "@/lib/plan/fields";
+import { getSkillGroupsForField } from "@/lib/plan/skillOptions";
 
 const QUICK_CONTEXT_CHIPS = [
+  "chipFirstYear",
   "chipSwitchingMajors",
   "chipTransfer",
   "chipFirstGen",
@@ -13,6 +15,7 @@ const QUICK_CONTEXT_CHIPS = [
 ] as const satisfies readonly TranslationKey[];
 
 type StepSkillsProps = {
+  fieldId: FieldId | null;
   initialSkills: string[];
   initialContext: string;
   onBack: () => void;
@@ -20,6 +23,7 @@ type StepSkillsProps = {
 };
 
 export function StepSkills({
+  fieldId,
   initialSkills,
   initialContext,
   onBack,
@@ -29,6 +33,8 @@ export function StepSkills({
     new Set(initialSkills),
   );
   const [context, setContext] = useState(initialContext);
+  const field = getCareerField(fieldId);
+  const skillGroups = getSkillGroupsForField(fieldId);
 
   function toggle(value: string) {
     setSelected((prev) => {
@@ -63,41 +69,10 @@ export function StepSkills({
           What have you done so far?
         </h2>
         <p className="max-w-2xl font-mono text-sm leading-relaxed text-muted-strong">
-          Tap anything that&apos;s true. Nothing yet is a real answer — first
-          quarter is allowed to be empty.
+          Tap anything that&apos;s true for {field?.shortName ?? "this field"}.
+          Nothing yet is a real answer — first quarter is allowed to be empty.
         </p>
       </header>
-
-      <div className="space-y-6">
-        {SKILL_GROUPS.map((group) => (
-          <fieldset key={group.label} className="space-y-3">
-            <legend className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-muted-strong">
-              {group.label}
-            </legend>
-            <div className="flex flex-wrap gap-2">
-              {group.options.map((option) => {
-                const on = selected.has(option);
-                return (
-                  <button
-                    key={option}
-                    type="button"
-                    onClick={() => toggle(option)}
-                    aria-pressed={on}
-                    className={[
-                      "border px-3 py-1.5 font-mono text-xs transition-colors",
-                      on
-                        ? "border-cyber bg-cyber-dim text-cyber-bright"
-                        : "border-border bg-panel text-muted-strong hover:border-cyber/60 hover:text-foreground",
-                    ].join(" ")}
-                  >
-                    {option}
-                  </button>
-                );
-              })}
-            </div>
-          </fieldset>
-        ))}
-      </div>
 
       <div className="space-y-2">
         <span className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-muted-strong">
@@ -114,7 +89,7 @@ export function StepSkills({
                 onClick={() => toggleContextChip(label)}
                 aria-pressed={active}
                 className={[
-                  "border px-3 py-1.5 font-mono text-xs transition-colors",
+                  "border px-3 py-1.5 font-mono text-xs capitalize transition-colors",
                   active
                     ? "border-cyber bg-cyber-dim text-cyber-bright"
                     : "border-border bg-panel text-muted-strong hover:border-cyber/60 hover:text-foreground",
@@ -125,6 +100,37 @@ export function StepSkills({
             );
           })}
         </div>
+      </div>
+
+      <div className="space-y-6">
+        {skillGroups.map((group) => (
+          <fieldset key={group.label} className="space-y-3">
+            <legend className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-muted-strong">
+              {group.label}
+            </legend>
+            <div className="flex flex-wrap gap-2">
+              {group.options.map((option) => {
+                const on = selected.has(option);
+                return (
+                  <button
+                    key={option}
+                    type="button"
+                    onClick={() => toggle(option)}
+                    aria-pressed={on}
+                    className={[
+                      "border px-3 py-1.5 font-mono text-xs capitalize transition-colors",
+                      on
+                        ? "border-cyber bg-cyber-dim text-cyber-bright"
+                        : "border-border bg-panel text-muted-strong hover:border-cyber/60 hover:text-foreground",
+                    ].join(" ")}
+                  >
+                    {option}
+                  </button>
+                );
+              })}
+            </div>
+          </fieldset>
+        ))}
       </div>
 
       <label className="block space-y-2">

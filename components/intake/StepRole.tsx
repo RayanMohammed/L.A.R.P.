@@ -3,24 +3,20 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { t } from "@/lib/i18n/translations";
-import { ARCHETYPES } from "@/lib/plan/data";
+import { CAREER_FIELDS, type FieldId } from "@/lib/plan/fields";
 
 type StepRoleProps = {
-  initialRoleId: string | null;
-  initialFreeText: string;
-  onSubmit: (value: { roleId: string | null; freeText: string }) => void;
+  initialFieldId: FieldId | null;
+  onSubmit: (value: { fieldId: FieldId }) => void;
 };
 
 export function StepRole({
-  initialRoleId,
-  initialFreeText,
+  initialFieldId,
   onSubmit,
 }: StepRoleProps) {
-  const [roleId, setRoleId] = useState<string | null>(initialRoleId);
-  const [freeText, setFreeText] = useState(initialFreeText);
-  const [showFreeText, setShowFreeText] = useState(Boolean(initialFreeText));
+  const [fieldId, setFieldId] = useState<FieldId | null>(initialFieldId);
 
-  const canContinue = Boolean(roleId) || freeText.trim().length > 2;
+  const canContinue = Boolean(fieldId);
 
   return (
     <section className="w-full flex-1 space-y-8">
@@ -32,25 +28,24 @@ export function StepRole({
           {t("step1Heading")}
         </h2>
         <p className="max-w-2xl font-mono text-sm leading-relaxed text-muted-strong">
-          Pick one. You don&apos;t have to be sure — we just need somewhere to
-          start.
+          Pick the broad lane that feels closest. You can specialize later; this
+          just shapes the questions and dashboard.
         </p>
       </header>
 
-      <ul className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
-        {ARCHETYPES.map((a) => {
-          const selected = roleId === a.id;
+      <ul className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {CAREER_FIELDS.map((field) => {
+          const selected = fieldId === field.id;
           return (
-            <li key={a.id}>
+            <li key={field.id}>
               <button
                 type="button"
                 onClick={() => {
-                  setRoleId(a.id);
-                  if (showFreeText) setFreeText("");
+                  setFieldId(field.id);
                 }}
                 aria-pressed={selected}
                 className={[
-                  "h-full w-full border bg-panel px-4 py-3 text-left transition-colors",
+                  "min-h-52 w-full border bg-panel px-5 py-5 text-left transition-colors sm:min-h-56",
                   "hover:border-cyber hover:bg-surface-2",
                   selected
                     ? "border-cyber bg-cyber-dim shadow-[0_0_18px_rgba(100,149,237,0.18)]"
@@ -58,18 +53,25 @@ export function StepRole({
                 ].join(" ")}
               >
                 <div className="flex items-baseline justify-between gap-2">
-                  <span className="font-medium text-foreground">{a.name}</span>
+                  <span className="text-lg font-medium text-foreground">
+                    {field.name}
+                  </span>
                   <span className="font-label text-[10px] font-semibold uppercase tracking-wider text-muted">
-                    {a.typicalTimeline.split("—")[0].trim()}
+                    {field.sampleRoles.length} paths
                   </span>
                 </div>
-                <ul className="mt-2 list-disc space-y-1 pl-4 text-sm leading-snug text-muted">
-                  <li>{a.summary}</li>
-                  {a.jargonNote ? (
-                    <li className="font-mono text-xs italic text-muted/70">
-                      {a.jargonNote}
+                <p className="mt-4 text-sm capitalize leading-relaxed text-muted">
+                  {field.summary}
+                </p>
+                <ul className="mt-5 flex flex-wrap gap-2">
+                  {field.sampleRoles.slice(0, 3).map((role) => (
+                    <li
+                      key={role}
+                      className="border border-border bg-bg/40 px-2.5 py-1 font-mono text-[10px] capitalize text-muted-strong"
+                    >
+                      {role}
                     </li>
-                  ) : null}
+                  ))}
                 </ul>
               </button>
             </li>
@@ -77,40 +79,14 @@ export function StepRole({
         })}
       </ul>
 
-      <div className="border border-dashed border-border bg-panel/40 p-4">
-        {showFreeText ? (
-          <label className="block space-y-2">
-            <span className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-muted-strong">
-              Or describe it in your own words
-            </span>
-            <textarea
-              value={freeText}
-              onChange={(e) => {
-                setFreeText(e.target.value);
-                if (e.target.value.trim().length > 0) setRoleId(null);
-              }}
-              placeholder="e.g. something where I get paid to write or research"
-              rows={2}
-              className="w-full resize-y border border-border bg-bg p-3 font-mono text-sm text-foreground placeholder:text-muted/70 focus:border-cyber focus:outline-none"
-            />
-          </label>
-        ) : (
-          <button
-            type="button"
-            onClick={() => setShowFreeText(true)}
-            className="font-mono text-sm text-cyber underline-offset-4 hover:underline"
-          >
-            None of these fit — let me describe it
-          </button>
-        )}
-      </div>
-
       <div className="flex items-center justify-end">
         <Button
           variant="primary"
           size="lg"
           disabled={!canContinue}
-          onClick={() => onSubmit({ roleId, freeText: freeText.trim() })}
+          onClick={() => {
+            if (fieldId) onSubmit({ fieldId });
+          }}
         >
           Continue →
         </Button>
