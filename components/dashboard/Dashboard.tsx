@@ -47,7 +47,7 @@ export function Dashboard({
         <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
           {field?.name ?? plan.archetype.name}
         </h2>
-        <p className="max-w-3xl font-mono text-sm capitalize leading-relaxed text-muted-strong">
+        <p className="max-w-3xl font-mono text-sm leading-relaxed text-muted-strong">
           {field?.summary ?? plan.archetype.summary}
         </p>
       </header>
@@ -81,7 +81,7 @@ function WeeklyPlan({ plan }: { plan: PlanResponse }) {
         <h3 className="text-2xl font-semibold tracking-tight text-foreground">
           {plan.archetype.name}
         </h3>
-        <p className="pt-2 text-base capitalize leading-relaxed text-muted-strong">
+        <p className="pt-2 text-base leading-relaxed text-muted-strong">
           {plan.summary}
         </p>
       </header>
@@ -114,23 +114,23 @@ function WeeklyPlan({ plan }: { plan: PlanResponse }) {
                 <dt className="font-label text-[10px] font-bold uppercase tracking-wider text-muted">
                   Gap
                 </dt>
-                <dd className="capitalize text-foreground/85">{item.gap}</dd>
+                <dd className="text-foreground/85">{item.gap}</dd>
               </div>
               <div className="grid grid-cols-[88px_1fr] gap-x-3">
                 <dt className="font-label text-[10px] font-bold uppercase tracking-wider text-muted">
                   Skill
                 </dt>
-                <dd className="capitalize text-foreground/85">{item.skillBuilt}</dd>
+                <dd className="text-foreground/85">{item.skillBuilt}</dd>
               </div>
               <div className="grid grid-cols-[88px_1fr] gap-x-3">
                 <dt className="font-label text-[10px] font-bold uppercase tracking-wider text-muted">
                   Unlocks
                 </dt>
-                <dd className="capitalize text-foreground/85">{item.jobUnlocked}</dd>
+                <dd className="text-foreground/85">{item.jobUnlocked}</dd>
               </div>
             </dl>
 
-            <div className="mt-4 border border-cyber/40 bg-cyber-dim/60 p-3 text-sm capitalize text-cyber-bright">
+            <div className="mt-4 border border-cyber/40 bg-cyber-dim/60 p-3 text-sm text-cyber-bright">
               <span className="mr-2 font-label text-[10px] font-bold uppercase tracking-wider text-cyber">
                 Do this week →
               </span>
@@ -168,7 +168,7 @@ function IndustrySkills({
             key={skill}
             className="border border-border bg-bg/40 px-3 py-2 font-mono text-xs capitalize text-muted-strong"
           >
-            {skill}
+            {toTitleCase(skill)}
           </li>
         ))}
       </ul>
@@ -195,7 +195,7 @@ function SelectedInputs({
               key={skill}
               className="border border-cyber/40 bg-cyber-dim/50 px-3 py-1.5 font-mono text-xs capitalize text-cyber-bright"
             >
-              {skill}
+              {toTitleCase(skill)}
             </li>
           ))}
         </ul>
@@ -206,10 +206,21 @@ function SelectedInputs({
         </p>
       )}
       {context ? (
-        <p className="mt-4 border-t border-border pt-4 font-mono text-xs capitalize leading-relaxed text-muted">
+        <p className="mt-4 border-t border-border pt-4 font-mono text-xs leading-relaxed text-muted">
           {context}
         </p>
       ) : null}
     </section>
   );
+}
+
+function toTitleCase(value: string): string {
+  return value
+    .split(" ")
+    .map((word) =>
+      word.length > 3
+        ? `${word.charAt(0).toUpperCase()}${word.slice(1)}`
+        : word,
+    )
+    .join(" ");
 }

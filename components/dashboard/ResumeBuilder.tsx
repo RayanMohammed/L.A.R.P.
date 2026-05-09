@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import type { CareerField } from "@/lib/plan/fields";
 import type { PlanResponse } from "@/lib/plan/types";
@@ -45,12 +45,16 @@ export function ResumeBuilder({
   context,
 }: ResumeBuilderProps) {
   const [jobDescription, setJobDescription] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
+  const [appliedJobDescription, setAppliedJobDescription] = useState("");
+  const [appliedProjectDescription, setAppliedProjectDescription] = useState("");
   const [copied, setCopied] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
   const jobKeywords = useMemo(
-    () => extractJobKeywords(jobDescription, field?.resumeBuzzwords ?? []),
-    [field?.resumeBuzzwords, jobDescription],
+    () => extractJobKeywords(appliedJobDescription, field?.resumeBuzzwords ?? []),
+    [appliedJobDescription, field?.resumeBuzzwords],
   );
   const latex = useMemo(
     () =>
@@ -60,9 +64,53 @@ export function ResumeBuilder({
         selectedSkills,
         context,
         jobKeywords,
+        projectDescription: appliedProjectDescription,
       }),
-    [context, field, jobKeywords, plan, selectedSkills],
+    [appliedProjectDescription, context, field, jobKeywords, plan, selectedSkills],
   );
+
+  useEffect(() => {
+    let cancelled = false;
+    let objectUrl: string | null = null;
+
+    async function renderPdfPreview() {
+      const { jsPDF } = await import("jspdf");
+      if (cancelled) return;
+
+      const pdf = new jsPDF({ unit: "pt", format: "letter" });
+      writeResumePdf(pdf, {
+        field,
+        plan,
+        selectedSkills,
+        context,
+        jobKeywords,
+        projectDescription: appliedProjectDescription,
+      });
+
+      objectUrl = URL.createObjectURL(pdf.output("blob"));
+      if (cancelled) {
+        URL.revokeObjectURL(objectUrl);
+        return;
+      }
+
+      setPdfUrl((previousUrl) => {
+        if (previousUrl) URL.revokeObjectURL(previousUrl);
+        return objectUrl;
+      });
+    }
+
+    void renderPdfPreview();
+
+    return () => {
+      cancelled = true;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, [appliedProjectDescription, context, field, jobKeywords, plan, selectedSkills]);
+
+  function applyResumeInputs() {
+    setAppliedJobDescription(jobDescription.trim());
+    setAppliedProjectDescription(projectDescription.trim());
+  }
 
   async function copyLatex() {
     await navigator.clipboard.writeText(latex);
@@ -81,6 +129,7 @@ export function ResumeBuilder({
         selectedSkills,
         context,
         jobKeywords,
+        projectDescription: appliedProjectDescription,
       });
       pdf.save("larp-jake-resume.pdf");
     } finally {
@@ -99,8 +148,10 @@ export function ResumeBuilder({
             Jake&apos;s Resume Template, prefilled
           </h3>
           <p className="max-w-3xl font-mono text-sm leading-relaxed text-muted-strong">
-            Paste a job description to pull in relevant keywords. The generated
-            LaTeX includes every course and skill chip you selected above.
+            Paste a job description and any completed project notes, then click
+            Go to rewrite the resume keywords. The preview shows the PDF as an
+            employer would see it, and the LaTeX can be copied into Overleaf for
+            easy editing.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -119,31 +170,60 @@ export function ResumeBuilder({
       </div>
 
       <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-        <label className="block space-y-2">
-          <span className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-muted-strong">
-            Intended job description
-          </span>
-          <textarea
-            value={jobDescription}
-            onChange={(event) => setJobDescription(event.target.value)}
-            placeholder="Paste the internship or role description here. Keywords will be folded into the resume draft."
-            rows={14}
-            className="h-full min-h-[320px] w-full resize-y border border-border bg-bg p-3 font-mono text-sm text-foreground placeholder:text-muted/70 focus:border-cyber focus:outline-none"
-          />
-        </label>
+        <div className="grid gap-4">
+          <label className="block space-y-2">
+            <span className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-muted-strong">
+              Intended job description
+            </span>
+            <textarea
+              value={jobDescription}
+              onChange={(event) => setJobDescription(event.target.value)}
+              placeholder="Paste the internship or role description here. Keywords will be folded into the resume draft after you click Go."
+              rows={8}
+              className="min-h-48 w-full resize-y border border-border bg-bg p-3 font-mono text-sm text-foreground placeholder:text-muted/70 focus:border-cyber focus:outline-none"
+            />
+          </label>
+
+          <label className="block space-y-2">
+            <span className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-muted-strong">
+              Projects or resume additions
+            </span>
+            <textarea
+              value={projectDescription}
+              onChange={(event) => setProjectDescription(event.target.value)}
+              placeholder="Describe projects, clubs, lab work, class assignments, or jobs you want included. Example: built a React site for a student org, cleaned survey data in Python, led event logistics."
+              rows={8}
+              className="min-h-48 w-full resize-y border border-border bg-bg p-3 font-mono text-sm text-foreground placeholder:text-muted/70 focus:border-cyber focus:outline-none"
+            />
+          </label>
+
+          <div className="flex justify-end">
+            <Button variant="hot" size="md" onClick={applyResumeInputs}>
+              Go
+            </Button>
+          </div>
+        </div>
 
         <div className="space-y-2">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-muted-strong">
-              Inbuilt LaTeX viewer
+              Inbuilt PDF viewer
             </span>
             <span className="font-mono text-[11px] text-muted">
-              Download gives you a ready-to-open PDF draft.
+              Copy LaTeX if you want to edit the source.
             </span>
           </div>
-          <pre className="max-h-[520px] overflow-auto border border-border bg-bg p-4 text-xs leading-relaxed text-muted-strong">
-            <code>{latex}</code>
-          </pre>
+          {pdfUrl ? (
+            <iframe
+              title="Resume PDF preview"
+              src={pdfUrl}
+              className="h-[520px] w-full border border-border bg-bg"
+            />
+          ) : (
+            <div className="flex h-[520px] items-center justify-center border border-border bg-bg font-mono text-sm text-muted">
+              Building PDF Preview...
+            </div>
+          )}
         </div>
       </div>
 
@@ -152,9 +232,9 @@ export function ResumeBuilder({
           {jobKeywords.map((keyword) => (
             <span
               key={keyword}
-              className="border border-border bg-bg/60 px-2 py-1 font-mono text-[11px] capitalize text-muted"
+              className="border border-border bg-bg/60 px-2 py-1 font-mono text-[11px] text-muted"
             >
-              {keyword}
+              {toTitleCase(keyword)}
             </span>
           ))}
         </div>
@@ -188,8 +268,10 @@ function buildLatexResume(args: {
   selectedSkills: string[];
   context: string;
   jobKeywords: string[];
+  projectDescription: string;
 }): string {
-  const { field, plan, selectedSkills, context, jobKeywords } = args;
+  const { field, plan, selectedSkills, context, jobKeywords, projectDescription } =
+    args;
   const fieldName = latexEscape(field?.name ?? plan.archetype.name);
   const targetRole = latexEscape(plan.archetype.name);
   const allSkills = uniqueList([
@@ -204,16 +286,10 @@ function buildLatexResume(args: {
   const buzzwordLine = buzzwords.length
     ? buzzwords.map(latexEscape).join(", ")
     : "Add role keywords from the job description here";
-  const projectBullets =
-    plan.actionItems.length > 0
-      ? plan.actionItems
-          .slice(0, 2)
-          .map(
-            (item) =>
-              `        \\resumeItem{${latexEscape(item.thisWeekAction)} Built signal: ${latexEscape(item.skillBuilt)}.}`,
-          )
-          .join("\n")
-      : "        \\resumeItem{Add one project bullet with scope, tools, and measurable outcome.}";
+  const projectBullets = buildProjectBullets({
+    plan,
+    projectDescription,
+  });
   const contextLine = context
     ? `        \\resumeItem{Additional context to translate into bullets: ${latexEscape(context)}}`
     : "        \\resumeItem{Add context from part-time work, clubs, service, or coursework that proves consistency.}";
@@ -354,9 +430,17 @@ function writeResumePdf(
     selectedSkills: string[];
     context: string;
     jobKeywords: string[];
+    projectDescription: string;
   },
 ) {
-  const { field, plan, selectedSkills, context, jobKeywords } = args;
+  const {
+    field,
+    plan,
+    selectedSkills,
+    context,
+    jobKeywords,
+    projectDescription,
+  } = args;
   const margin = 54;
   const width = 612 - margin * 2;
   let y = 48;
@@ -427,15 +511,9 @@ function writeResumePdf(
 
   section("Projects");
   line(`L.A.R.P. Starter Project for ${plan.archetype.name}`, { bold: true });
-  if (plan.actionItems.length > 0) {
-    plan.actionItems.slice(0, 2).forEach((item) => {
-      line(`• ${item.thisWeekAction} Built signal: ${item.skillBuilt}.`, { indent: 10 });
-    });
-  } else {
-    line("• Add one project bullet with scope, tools, and measurable outcome.", {
-      indent: 10,
-    });
-  }
+  buildPdfProjectBullets({ plan, projectDescription }).forEach((bullet) => {
+    line(`• ${bullet}`, { indent: 10 });
+  });
   y += 6;
 
   section("Skills");
@@ -455,6 +533,62 @@ function latexEscape(value: string): string {
     .replace(/}/g, "\\}")
     .replace(/~/g, "\\textasciitilde{}")
     .replace(/\^/g, "\\textasciicircum{}");
+}
+
+function buildProjectBullets(args: {
+  plan: PlanResponse;
+  projectDescription: string;
+}): string {
+  const bullets = buildProjectBulletText(args);
+  return bullets
+    .map((bullet) => `        \\resumeItem{${latexEscape(bullet)}}`)
+    .join("\n");
+}
+
+function buildPdfProjectBullets(args: {
+  plan: PlanResponse;
+  projectDescription: string;
+}): string[] {
+  return buildProjectBulletText(args);
+}
+
+function buildProjectBulletText({
+  plan,
+  projectDescription,
+}: {
+  plan: PlanResponse;
+  projectDescription: string;
+}): string[] {
+  const userBullets = projectDescription
+    .split(/\n+/)
+    .map((line) => line.replace(/^[-*•]\s*/, "").trim())
+    .filter(Boolean)
+    .slice(0, 3)
+    .map(
+      (line) =>
+        `${line} Translate this into an action-oriented bullet with tools, scope, and outcome.`,
+    );
+
+  if (userBullets.length > 0) return userBullets;
+
+  if (plan.actionItems.length > 0) {
+    return plan.actionItems
+      .slice(0, 2)
+      .map((item) => `${item.thisWeekAction} Built signal: ${item.skillBuilt}.`);
+  }
+
+  return ["Add one project bullet with scope, tools, and measurable outcome."];
+}
+
+function toTitleCase(value: string): string {
+  return value
+    .split(" ")
+    .map((word) =>
+      word.length > 3
+        ? `${word.charAt(0).toUpperCase()}${word.slice(1)}`
+        : word,
+    )
+    .join(" ");
 }
 
 function uniqueList(values: string[]): string[] {
