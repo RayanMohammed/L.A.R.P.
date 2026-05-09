@@ -3,6 +3,7 @@
     "id": "swe-intern",
     "name": "Software Engineering Intern",
     "summary": "Builds and ships features in a real codebase alongside engineers — usually web, mobile, or backend services.",
+    "jargonNote": "This means writing the actual code that makes an app or website work — not designing how it looks, but building how it runs.",
     "requiredSkills": [
       "one mainstream language (Python, JavaScript/TypeScript, Java, C++, or Go)",
       "data structures and algorithms fundamentals",
@@ -32,6 +33,7 @@
     "id": "pm-intern",
     "name": "Product Manager Intern",
     "summary": "Sits between users, design, and engineering — defines what to build, why, and in what order.",
+    "jargonNote": "A PM figures out what the team should build next and why — think of it as being the translator between users, designers, and engineers.",
     "requiredSkills": [
       "writing a clear problem statement",
       "user interviewing basics",
@@ -61,6 +63,7 @@
     "id": "data-analyst-intern",
     "name": "Data Analyst Intern",
     "summary": "Pulls data, cleans it, and turns it into a chart, dashboard, or recommendation a non-technical team can act on.",
+    "jargonNote": "This role pulls numbers out of databases, turns them into charts, and tells the team what the data actually means.",
     "requiredSkills": [
       "SQL (joins, group by, window functions)",
       "Excel or Google Sheets to an intermediate level",
@@ -90,6 +93,7 @@
     "id": "ds-ml-intern",
     "name": "Data Scientist / ML Intern",
     "summary": "Builds models or rigorous experiments that change a product or business decision.",
+    "jargonNote": "This is building AI models — teaching a computer to make predictions or decisions based on data. Needs more math than a data analyst role.",
     "requiredSkills": [
       "Python (numpy, pandas, scikit-learn)",
       "linear algebra and probability fundamentals",
@@ -119,6 +123,7 @@
     "id": "ux-research-intern",
     "name": "UX Research Intern",
     "summary": "Designs and runs studies — interviews, surveys, usability tests — that change what the team builds.",
+    "jargonNote": "This role talks to real users, runs studies, and reports back on what people actually need — so designers and PMs don't have to guess.",
     "requiredSkills": [
       "interviewing without leading the witness",
       "writing a research plan with a clear question",
@@ -148,6 +153,7 @@
     "id": "product-design-intern",
     "name": "Product Design Intern",
     "summary": "Designs interfaces and flows for a product team — often pairing closely with PMs and engineers.",
+    "jargonNote": "This is designing how an app or website looks and works — the buttons, layouts, and flows that users actually interact with.",
     "requiredSkills": [
       "Figma at intermediate level (components, auto-layout)",
       "visual hierarchy and typography fundamentals",
@@ -177,6 +183,7 @@
     "id": "finance-analyst-intern",
     "name": "Finance Analyst Intern",
     "summary": "Builds models, decks, and analyses for investment banking, corporate finance, or asset management roles.",
+    "jargonNote": "This role builds spreadsheet models, reads company financial reports, and helps teams figure out if a deal or investment makes sense.",
     "requiredSkills": [
       "Excel (formulas, pivot tables, basic modeling)",
       "the three financial statements and how they connect",
@@ -206,6 +213,7 @@
     "id": "marketing-intern",
     "name": "Marketing Intern",
     "summary": "Helps run campaigns, content, social, or growth experiments — often analytical and creative at once.",
+    "jargonNote": "This is getting people to notice and care about a product — through social media, campaigns, ads, or content.",
     "requiredSkills": [
       "writing a tight headline and a paragraph that doesn't waste a reader's time",
       "basic Google Analytics or equivalent",
@@ -235,6 +243,7 @@
     "id": "consulting-intern",
     "name": "Consulting Analyst Intern",
     "summary": "Helps client teams structure problems, gather evidence, and recommend a path — usually in slides.",
+    "jargonNote": "Consultants help outside companies solve business problems — you come in, figure out what's wrong, and present a recommendation in slides.",
     "requiredSkills": [
       "structuring a vague problem into MECE buckets",
       "case-interview reasoning",
@@ -264,6 +273,7 @@
     "id": "hardware-intern",
     "name": "Hardware / Embedded Engineering Intern",
     "summary": "Designs or programs physical systems — PCBs, microcontrollers, robotics, or signal processing.",
+    "jargonNote": "This is building and programming physical things — circuit boards, robots, sensors — not just software.",
     "requiredSkills": [
       "C or C++ on a microcontroller (Arduino, STM32, ESP32, etc.)",
       "reading a schematic and a datasheet",
@@ -293,6 +303,7 @@
     "id": "bio-research-intern",
     "name": "Bioengineering / Wet-Lab Research Intern",
     "summary": "Joins a lab and contributes to experiments — pipettes, protocols, data, and the occasional poster.",
+    "jargonNote": "This means working in a science lab, running experiments, and collecting data — usually the first step toward medicine, pharma, or academic research.",
     "requiredSkills": [
       "lab safety and good lab notebook habits",
       "basic wet-lab techniques (pipetting, dilutions, sterile technique)",
@@ -322,6 +333,7 @@
     "id": "devops-intern",
     "name": "DevOps / SRE Intern",
     "summary": "Keeps services reliable and developer experience fast — CI/CD, infra, observability, and incidents.",
+    "jargonNote": "This role keeps the servers and tools that run software working reliably — think of it as the plumbing that makes apps stay online.",
     "requiredSkills": [
       "comfortable Linux command line",
       "git and a CI tool (GitHub Actions, GitLab CI, or similar)",

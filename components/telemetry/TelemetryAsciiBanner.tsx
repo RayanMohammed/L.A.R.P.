@@ -8,6 +8,7 @@ export function TelemetryAsciiBanner() {
           style={{
             fontSize: "18px",
             lineHeight: 1.15,
+            letterSpacing: "0.04em",
             textShadow:
               "0 0 6px rgba(100, 149, 237, 0.9), 0 0 18px rgba(100, 149, 237, 0.35), 0 0 40px rgba(100, 149, 237, 0.12)",
           }}

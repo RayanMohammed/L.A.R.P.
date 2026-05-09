@@ -28,7 +28,7 @@ export function StepRole({
           Step 01 / Target
         </p>
         <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          What kind of work do you want to do someday?
+          Pick a direction — you can always change it.
         </h2>
         <p className="max-w-2xl font-mono text-sm leading-relaxed text-muted-strong">
           Pick one. You don&apos;t have to be sure — we just need somewhere to
@@ -36,7 +36,7 @@ export function StepRole({
         </p>
       </header>
 
-      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {ARCHETYPES.map((a) => {
           const selected = roleId === a.id;
           return (
@@ -65,6 +65,11 @@ export function StepRole({
                 <p className="mt-1 text-sm leading-snug text-muted">
                   {a.summary}
                 </p>
+                {a.jargonNote ? (
+                  <p className="mt-1.5 font-mono text-xs italic leading-snug text-muted/70">
+                    {a.jargonNote}
+                  </p>
+                ) : null}
               </button>
             </li>
           );

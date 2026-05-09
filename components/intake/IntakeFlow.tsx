@@ -67,7 +67,7 @@ export function IntakeFlow() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-10 px-4 py-8 sm:px-5 sm:py-12">
+    <div className="flex w-full flex-1 flex-col gap-10 px-4 py-8 sm:px-6 sm:py-12 lg:px-10 xl:px-14">
       <TelemetryAsciiBanner />
 
       <div className="no-print flex justify-center">

@@ -4,6 +4,13 @@ import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { SKILL_GROUPS } from "@/lib/plan/skillOptions";
 
+const QUICK_CONTEXT_CHIPS = [
+  "I'm switching majors",
+  "I'm a transfer student",
+  "I'm first-gen",
+  "I'm working part-time",
+] as const;
+
 type StepSkillsProps = {
   initialSkills: string[];
   initialContext: string;
@@ -29,6 +36,20 @@ export function StepSkills({
       else next.add(value);
       return next;
     });
+  }
+
+  function toggleContextChip(label: string) {
+    setContext((prev) =>
+      prev.includes(label)
+        ? prev
+            .replace(label, "")
+            .replace(/,\s*,/, ",")
+            .replace(/^,\s*|,\s*$/g, "")
+            .trim()
+        : prev.trim()
+          ? `${prev.trim()}, ${label}`
+          : label,
+    );
   }
 
   return (
@@ -75,6 +96,33 @@ export function StepSkills({
             </div>
           </fieldset>
         ))}
+      </div>
+
+      <div className="space-y-2">
+        <span className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-muted-strong">
+          Anything that describes you?
+        </span>
+        <div className="flex flex-wrap gap-2">
+          {QUICK_CONTEXT_CHIPS.map((label) => {
+            const active = context.includes(label);
+            return (
+              <button
+                key={label}
+                type="button"
+                onClick={() => toggleContextChip(label)}
+                aria-pressed={active}
+                className={[
+                  "border px-3 py-1.5 font-mono text-xs transition-colors",
+                  active
+                    ? "border-cyber bg-cyber-dim text-cyber-bright"
+                    : "border-border bg-panel text-muted-strong hover:border-cyber/60 hover:text-foreground",
+                ].join(" ")}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <label className="block space-y-2">

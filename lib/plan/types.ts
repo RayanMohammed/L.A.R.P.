@@ -4,6 +4,7 @@ export type JobArchetype = {
   id: string;
   name: string;
   summary: string;
+  jargonNote?: string;
   requiredSkills: string[];
   niceToHaveSkills: string[];
   typicalTimeline: string;
