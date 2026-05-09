@@ -1,0 +1,350 @@
+[
+  {
+    "id": "swe-intern",
+    "name": "Software Engineering Intern",
+    "summary": "Builds and ships features in a real codebase alongside engineers — usually web, mobile, or backend services.",
+    "requiredSkills": [
+      "one mainstream language (Python, JavaScript/TypeScript, Java, C++, or Go)",
+      "data structures and algorithms fundamentals",
+      "git and pull-request workflow",
+      "reading and modifying an existing codebase",
+      "unit testing basics",
+      "command-line and a code editor",
+      "debugging with a debugger or logs",
+      "explaining a technical decision in writing"
+    ],
+    "niceToHaveSkills": [
+      "one shipped side-project with a public repo",
+      "a web framework (React, Next.js, or similar)",
+      "SQL basics",
+      "Docker or basic Linux",
+      "experience reviewing someone else's code"
+    ],
+    "typicalTimeline": "12–18 months from zero to first SWE internship",
+    "signalsRecruitersWant": [
+      "a GitHub with real commits, not just clones",
+      "one project they can describe end-to-end in 90 seconds",
+      "a LeetCode/CSES habit, even if early",
+      "a referral or a club/team project on the resume"
+    ]
+  },
+  {
+    "id": "pm-intern",
+    "name": "Product Manager Intern",
+    "summary": "Sits between users, design, and engineering — defines what to build, why, and in what order.",
+    "requiredSkills": [
+      "writing a clear problem statement",
+      "user interviewing basics",
+      "prioritization frameworks (RICE, MoSCoW, or similar)",
+      "reading product metrics (DAU, retention, funnels)",
+      "writing a one-page PRD",
+      "running a meeting with an agenda",
+      "basic SQL or spreadsheet analysis",
+      "summarizing tradeoffs without taking sides"
+    ],
+    "niceToHaveSkills": [
+      "shipped a small product (even a class project) end-to-end",
+      "ran a club initiative with metrics",
+      "Figma literacy",
+      "exposure to A/B testing concepts",
+      "wrote a public teardown or product analysis"
+    ],
+    "typicalTimeline": "18–24 months — most PM interns first do SWE, design, or APM-feeder roles",
+    "signalsRecruitersWant": [
+      "evidence of leading something cross-functional",
+      "a written artifact (PRD, teardown, case study)",
+      "a story that ties a decision to a measurable outcome",
+      "comfort speaking to a room of strangers"
+    ]
+  },
+  {
+    "id": "data-analyst-intern",
+    "name": "Data Analyst Intern",
+    "summary": "Pulls data, cleans it, and turns it into a chart, dashboard, or recommendation a non-technical team can act on.",
+    "requiredSkills": [
+      "SQL (joins, group by, window functions)",
+      "Excel or Google Sheets to an intermediate level",
+      "one BI tool (Tableau, Looker, or Power BI) — even self-taught",
+      "Python or R for data wrangling (pandas/tidyverse)",
+      "descriptive statistics (mean, median, distribution, correlation)",
+      "writing a one-paragraph insight from a chart",
+      "spotting a dirty dataset",
+      "presenting a finding to a non-technical audience"
+    ],
+    "niceToHaveSkills": [
+      "a public dashboard or notebook",
+      "experience with a real (not toy) dataset",
+      "git basics",
+      "A/B testing literacy",
+      "domain knowledge in finance, marketing, or ops"
+    ],
+    "typicalTimeline": "9–15 months — one of the most accessible first internships",
+    "signalsRecruitersWant": [
+      "a portfolio link with at least one analysis",
+      "ability to describe a query they wrote",
+      "evidence of curiosity (a Kaggle, a club analysis, a personal project)",
+      "clean writing in a cover letter or LinkedIn About section"
+    ]
+  },
+  {
+    "id": "ds-ml-intern",
+    "name": "Data Scientist / ML Intern",
+    "summary": "Builds models or rigorous experiments that change a product or business decision.",
+    "requiredSkills": [
+      "Python (numpy, pandas, scikit-learn)",
+      "linear algebra and probability fundamentals",
+      "supervised learning basics (regression, classification, evaluation metrics)",
+      "Jupyter / notebook hygiene",
+      "SQL",
+      "git",
+      "reading a research paper enough to summarize it",
+      "framing a business question as a model task"
+    ],
+    "niceToHaveSkills": [
+      "PyTorch or TensorFlow exposure",
+      "an end-to-end ML project (data → model → write-up)",
+      "experiment design / A/B testing",
+      "cloud compute experience (Colab, Lightning, or AWS)",
+      "a Kaggle entry or blog post"
+    ],
+    "typicalTimeline": "18–30 months — usually requires upper-division coursework or research",
+    "signalsRecruitersWant": [
+      "one ML project beyond a tutorial",
+      "ability to defend a modeling choice ('why this loss?')",
+      "research or coursework that goes deeper than the syllabus",
+      "a writeup that frames the problem before the model"
+    ]
+  },
+  {
+    "id": "ux-research-intern",
+    "name": "UX Research Intern",
+    "summary": "Designs and runs studies — interviews, surveys, usability tests — that change what the team builds.",
+    "requiredSkills": [
+      "interviewing without leading the witness",
+      "writing a research plan with a clear question",
+      "synthesizing notes into themes",
+      "presenting findings to designers and PMs",
+      "basic survey design (avoiding bias)",
+      "note-taking discipline",
+      "ethics of human-subjects research",
+      "reading a research paper or industry report"
+    ],
+    "niceToHaveSkills": [
+      "Figma literacy (to communicate with designers)",
+      "qualitative coding tools (Dovetail, Marvin) or even just Notion",
+      "exposure to quantitative research (surveys, analytics)",
+      "ran a study in a class or club",
+      "a portfolio or case study"
+    ],
+    "typicalTimeline": "15–24 months — often follows a research-method or psych course",
+    "signalsRecruitersWant": [
+      "a case study describing question → method → finding → impact",
+      "evidence of empathy in writing",
+      "experience presenting research to a non-research audience",
+      "comfort with ambiguity"
+    ]
+  },
+  {
+    "id": "product-design-intern",
+    "name": "Product Design Intern",
+    "summary": "Designs interfaces and flows for a product team — often pairing closely with PMs and engineers.",
+    "requiredSkills": [
+      "Figma at intermediate level (components, auto-layout)",
+      "visual hierarchy and typography fundamentals",
+      "wireframing a flow before high-fidelity",
+      "giving and taking design critique",
+      "writing UI copy that doesn't get in the way",
+      "prototyping basic interactions",
+      "describing a design decision in plain language",
+      "designing for at least mobile and desktop"
+    ],
+    "niceToHaveSkills": [
+      "a public portfolio with 2–3 case studies",
+      "design system experience",
+      "exposure to user research",
+      "front-end basics (HTML/CSS, or Framer)",
+      "motion or illustration"
+    ],
+    "typicalTimeline": "12–24 months — portfolio-driven; speed depends on case-study quality",
+    "signalsRecruitersWant": [
+      "a portfolio that tells the story, not just shows the screens",
+      "a process artifact (sketches, alternatives considered)",
+      "evidence of working with non-designers",
+      "taste — referenced products and inspirations"
+    ]
+  },
+  {
+    "id": "finance-analyst-intern",
+    "name": "Finance Analyst Intern",
+    "summary": "Builds models, decks, and analyses for investment banking, corporate finance, or asset management roles.",
+    "requiredSkills": [
+      "Excel (formulas, pivot tables, basic modeling)",
+      "the three financial statements and how they connect",
+      "DCF and comparable-company concepts at a high level",
+      "PowerPoint / Google Slides for executive comms",
+      "reading a 10-K or earnings release",
+      "basic accounting vocabulary",
+      "a clean professional email",
+      "comfort with quantitative reasoning under time pressure"
+    ],
+    "niceToHaveSkills": [
+      "a stock pitch or investment memo (even for a class)",
+      "exposure to Bloomberg / Capital IQ",
+      "Python or SQL for analysis",
+      "involvement in a finance club or fund",
+      "a relevant certification in progress (CFA Level 1, etc.)"
+    ],
+    "typicalTimeline": "12–24 months — recruiting starts very early in finance, often sophomore fall",
+    "signalsRecruitersWant": [
+      "GPA and relevant coursework",
+      "a deal or stock pitch they can talk through",
+      "a finance-club leadership role",
+      "polish — resume, email, handshake, eye contact"
+    ]
+  },
+  {
+    "id": "marketing-intern",
+    "name": "Marketing Intern",
+    "summary": "Helps run campaigns, content, social, or growth experiments — often analytical and creative at once.",
+    "requiredSkills": [
+      "writing a tight headline and a paragraph that doesn't waste a reader's time",
+      "basic Google Analytics or equivalent",
+      "spreadsheet literacy",
+      "social media platform conventions (LinkedIn, Instagram, TikTok)",
+      "running a small experiment with a clear metric",
+      "Canva or Figma for quick visuals",
+      "email and brief-writing",
+      "presenting results to a non-marketing team"
+    ],
+    "niceToHaveSkills": [
+      "a personal brand or content channel with engagement",
+      "ran marketing for a campus org or event",
+      "SEO basics",
+      "ad-platform exposure (Meta, Google Ads)",
+      "video editing"
+    ],
+    "typicalTimeline": "9–15 months — accessible if you can show a portfolio or campaign",
+    "signalsRecruitersWant": [
+      "a body of work — posts, campaigns, or events with metrics",
+      "a clear voice in writing",
+      "evidence of running a thing, not just helping with it",
+      "comfort being on camera or in front of a room"
+    ]
+  },
+  {
+    "id": "consulting-intern",
+    "name": "Consulting Analyst Intern",
+    "summary": "Helps client teams structure problems, gather evidence, and recommend a path — usually in slides.",
+    "requiredSkills": [
+      "structuring a vague problem into MECE buckets",
+      "case-interview reasoning",
+      "PowerPoint / Slides at executive quality",
+      "Excel modeling at intermediate level",
+      "secondary research (finding numbers fast)",
+      "summarizing a 30-minute interview into a one-pager",
+      "professional written and verbal communication",
+      "team behavior under deadline"
+    ],
+    "niceToHaveSkills": [
+      "consulting club involvement and case practice",
+      "a project that solved a real problem for an external client",
+      "exposure to SQL or basic data analysis",
+      "study abroad or international experience",
+      "a leadership role with measurable impact"
+    ],
+    "typicalTimeline": "15–24 months — competitive; case prep is a multi-month effort",
+    "signalsRecruitersWant": [
+      "GPA and case-interview readiness",
+      "leadership experience with a story arc",
+      "polish in conversation and writing",
+      "diverse interests outside the major"
+    ]
+  },
+  {
+    "id": "hardware-intern",
+    "name": "Hardware / Embedded Engineering Intern",
+    "summary": "Designs or programs physical systems — PCBs, microcontrollers, robotics, or signal processing.",
+    "requiredSkills": [
+      "C or C++ on a microcontroller (Arduino, STM32, ESP32, etc.)",
+      "reading a schematic and a datasheet",
+      "soldering and basic lab safety",
+      "oscilloscope and multimeter basics",
+      "version control",
+      "circuit fundamentals (Ohm's law, RC circuits, op-amps)",
+      "documenting a hardware build",
+      "debugging signals, not just code"
+    ],
+    "niceToHaveSkills": [
+      "PCB design (KiCad, Altium, or Eagle)",
+      "an embedded project on a public repo",
+      "RTOS or FreeRTOS exposure",
+      "CAD (Fusion 360, SolidWorks) for enclosures",
+      "FPGA / Verilog basics"
+    ],
+    "typicalTimeline": "15–24 months — project-portfolio driven, similar to SWE",
+    "signalsRecruitersWant": [
+      "a project they can show photos and a writeup of",
+      "a club or competition team (robotics, IEEE, hardware hackathons)",
+      "comfort talking about failure modes",
+      "a willingness to break things on purpose"
+    ]
+  },
+  {
+    "id": "bio-research-intern",
+    "name": "Bioengineering / Wet-Lab Research Intern",
+    "summary": "Joins a lab and contributes to experiments — pipettes, protocols, data, and the occasional poster.",
+    "requiredSkills": [
+      "lab safety and good lab notebook habits",
+      "basic wet-lab techniques (pipetting, dilutions, sterile technique)",
+      "reading a primary research paper",
+      "ELN or notebook discipline",
+      "core biology or chemistry coursework",
+      "Excel for basic data analysis",
+      "presenting at a lab meeting",
+      "asking a PI or grad student a focused question"
+    ],
+    "niceToHaveSkills": [
+      "Python or R for bio data",
+      "exposure to specific techniques (PCR, Western blot, microscopy, CRISPR)",
+      "bioinformatics or computational biology basics",
+      "co-author on a poster or paper",
+      "a relevant scholarship or program (URH, McNair, Amgen, etc.)"
+    ],
+    "typicalTimeline": "6–12 months to first lab placement; 18–24 months to industry internship",
+    "signalsRecruitersWant": [
+      "a faculty or postdoc reference",
+      "a focused interest area (not 'all of biology')",
+      "consistency — months in the same lab beats weeks in three",
+      "the ability to explain your project to a non-bio person"
+    ]
+  },
+  {
+    "id": "devops-intern",
+    "name": "DevOps / SRE Intern",
+    "summary": "Keeps services reliable and developer experience fast — CI/CD, infra, observability, and incidents.",
+    "requiredSkills": [
+      "comfortable Linux command line",
+      "git and a CI tool (GitHub Actions, GitLab CI, or similar)",
+      "scripting in Bash and Python",
+      "Docker basics",
+      "networking fundamentals (DNS, HTTP, TCP, ports)",
+      "reading logs and stack traces",
+      "writing a postmortem or runbook",
+      "basic cloud literacy (AWS, GCP, or Azure free tier)"
+    ],
+    "niceToHaveSkills": [
+      "Kubernetes exposure",
+      "infrastructure as code (Terraform or Pulumi)",
+      "a self-hosted service or homelab",
+      "an open-source PR to a tooling project",
+      "monitoring stack experience (Prometheus, Grafana, Datadog)"
+    ],
+    "typicalTimeline": "15–24 months — usually after a SWE-style first internship or a strong systems class",
+    "signalsRecruitersWant": [
+      "a project that touches deploy, not just code",
+      "a homelab, club infra, or contribution to a tool you use",
+      "calm writing about a thing that broke",
+      "curiosity about how the box works"
+    ]
+  }
+]

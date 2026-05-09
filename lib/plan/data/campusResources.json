@@ -1,0 +1,146 @@
+[
+  {
+    "id": "acm-ucsd",
+    "name": "Association for Computing Machinery (ACM) at UC San Diego",
+    "type": "club",
+    "description": "Largest computing student org at UCSD. Runs project teams, technical workshops, and a hack night cadence. Project teams ship real software with peer code review, which is the single fastest way to get your first git collaboration story.",
+    "skillsItBuilds": ["git pull-request workflow", "team coding", "code review", "technical communication", "shipping a project"],
+    "url": "https://studentorg.ucsd.edu/Home/Details/20590"
+  },
+  {
+    "id": "tse",
+    "name": "Triton Software Engineering (TSE)",
+    "type": "internship-lite",
+    "description": "Student-run pro-bono software consultancy: small teams build real apps for nonprofit clients across a 6–9 month engagement. Application-only, looks like a real internship on a resume because it is one.",
+    "skillsItBuilds": ["full-stack web development", "client communication", "scoping requirements", "agile sprints", "deploying to production"],
+    "url": "https://tse.ucsd.edu/"
+  },
+  {
+    "id": "ai-student-collective",
+    "name": "AI Student Collective at UC San Diego",
+    "type": "club",
+    "description": "Reading group + applied projects on modern ML and LLMs. Good entry point if you want a Data Scientist / ML Intern story but can't yet take graduate ML coursework.",
+    "skillsItBuilds": ["reading ML papers", "PyTorch basics", "framing an ML project", "presenting technical work"],
+    "url": "https://studentorg.ucsd.edu/Home/Details/20789"
+  },
+  {
+    "id": "blockchain-ucsd",
+    "name": "Blockchain at UC San Diego",
+    "type": "club",
+    "description": "Student org running technical workshops on Solidity, ZK proofs, and crypto-adjacent engineering. Doubles as a recruiting funnel for crypto/fintech internships.",
+    "skillsItBuilds": ["smart-contract basics", "cryptography intuition", "TypeScript with web3 libraries", "technical writing"],
+    "url": "https://studentorg.ucsd.edu/Home/Details/20744"
+  },
+  {
+    "id": "design-co",
+    "name": "Design Co at UC San Diego",
+    "type": "club",
+    "description": "Product design club: portfolio reviews, design challenges, and partnerships with student-run product teams. The most direct path to a Product Design Intern portfolio at UCSD.",
+    "skillsItBuilds": ["Figma fluency", "design critique", "portfolio case studies", "design systems thinking"],
+    "url": "https://designcoucsd.com/"
+  },
+  {
+    "id": "tritonai",
+    "name": "Triton AI / Robotics Project Teams",
+    "type": "club",
+    "description": "Hardware + software project teams (autonomous vehicles, robotics) under TESC. Hands-on embedded and applied ML work, plus a competition cadence that creates resume bullets with measurable outcomes.",
+    "skillsItBuilds": ["embedded C/C++", "ROS basics", "sensor integration", "competing on a deadline"],
+    "url": "https://www.tritonrobotics.org/"
+  },
+  {
+    "id": "tesc",
+    "name": "Triton Engineering Student Council (TESC)",
+    "type": "club",
+    "description": "Umbrella council for ~30 engineering project teams and orgs. Best 'I don't know which engineering club to join' starting point because TESC's events introduce all of them at once.",
+    "skillsItBuilds": ["project team membership", "leadership exposure", "cross-disciplinary collaboration"],
+    "url": "https://tesc.ucsd.edu/"
+  },
+  {
+    "id": "urh",
+    "name": "Undergraduate Research Hub (URH) Programs",
+    "type": "research",
+    "description": "Central directory of UCSD undergrad research programs (Faculty Mentor Program, Summer Research Program, Triton Research & Experiential Learning Scholars, etc.). Most are open to first- and second-years and pair you with a faculty mentor.",
+    "skillsItBuilds": ["working with a faculty mentor", "literature review", "owning a small research question", "presenting at a poster session"],
+    "url": "https://ugresearch.ucsd.edu/programs/all-ucsd.html"
+  },
+  {
+    "id": "aip",
+    "name": "Academic Internship Program (AIP)",
+    "type": "internship-lite",
+    "description": "For-credit internship program through the university. Helps you find an internship and wraps it in a graded course, which is friendlier than the open market for first-years with no prior experience.",
+    "skillsItBuilds": ["professional workplace behavior", "internship search", "reflective writing", "any role-specific skill from the placement"],
+    "url": "https://aip.ucsd.edu/"
+  },
+  {
+    "id": "basement",
+    "name": "The Basement (UC San Diego startup incubator)",
+    "type": "incubator",
+    "description": "Undergrad-focused incubator on campus. Office hours with EIRs, pitch competitions, and accelerator cohorts. Great for PM and design archetypes because everything is end-to-end product work.",
+    "skillsItBuilds": ["customer interviewing", "shipping an MVP", "pitching", "scoping a product"],
+    "url": "https://thebasement.ucsd.edu/"
+  },
+  {
+    "id": "bap",
+    "name": "Beta Alpha Psi at UC San Diego",
+    "type": "club",
+    "description": "Honors org for accounting, finance, and information systems. Recruiting events with Big Four and Bay Area finance firms, plus technical workshops on Excel modeling and case prep.",
+    "skillsItBuilds": ["accounting fundamentals", "Excel modeling", "professional networking", "interview prep"],
+    "url": "https://studentorg.ucsd.edu/Home/Details/20447"
+  },
+  {
+    "id": "akpsi",
+    "name": "Alpha Kappa Psi (Professional Business Fraternity)",
+    "type": "club",
+    "description": "Co-ed professional business fraternity at UCSD. Rush-based; once in, you get an alumni network spanning consulting, finance, marketing, and tech. Strongest signal for Consulting/Finance archetypes.",
+    "skillsItBuilds": ["case interview prep", "networking", "running a committee", "professional polish"],
+    "url": "https://studentorg.ucsd.edu/Home/Details/20275"
+  },
+  {
+    "id": "alpfa",
+    "name": "ALPFA at UC San Diego",
+    "type": "club",
+    "description": "Association of Latino Professionals For America student chapter. Mentorship, conference funding, and a corporate partner pipeline (consulting, finance, tech).",
+    "skillsItBuilds": ["professional networking", "case prep", "leadership", "conference presentation"],
+    "url": "https://studentorg.ucsd.edu/Home/Details/20602"
+  },
+  {
+    "id": "ascend",
+    "name": "Ascend at UC San Diego",
+    "type": "club",
+    "description": "Pan-Asian business student org with strong corporate ties (consulting, finance, tech). Workshop series + national conference each year.",
+    "skillsItBuilds": ["professional development", "networking", "presentation skills", "case prep"],
+    "url": "https://studentorg.ucsd.edu/Home/Details/20203"
+  },
+  {
+    "id": "asa-stats",
+    "name": "American Statistical Association at UC San Diego",
+    "type": "club",
+    "description": "Data and stats student org. Runs a DataFest team and applied data analysis projects. Lower-bar entry to building a Data Analyst Intern portfolio.",
+    "skillsItBuilds": ["R or Python data wrangling", "statistical analysis", "building dashboards", "presenting findings"],
+    "url": "https://studentorg.ucsd.edu/Home/Details/20408"
+  },
+  {
+    "id": "bmes",
+    "name": "Biomedical Engineering Society (BMES) at UC San Diego",
+    "type": "club",
+    "description": "Bioengineering project teams, industry mentor program, and lab tours. Best entry point for Bio Research / Bioengineering Intern paths.",
+    "skillsItBuilds": ["lab familiarity", "bioengineering project work", "industry exposure", "mentorship relationships"],
+    "url": "https://studentorg.ucsd.edu/Home/Details/20571"
+  },
+  {
+    "id": "career-center",
+    "name": "UC San Diego Career Center",
+    "type": "program",
+    "description": "Resume reviews, mock interviews, and recruiter-led workshops every quarter. The mock interview slots are the most underused leverage on campus for first-years.",
+    "skillsItBuilds": ["resume writing", "interview practice", "negotiation basics", "career narrative"],
+    "url": "https://career.ucsd.edu/"
+  },
+  {
+    "id": "idea-center",
+    "name": "IDEA Engineering Student Center",
+    "type": "program",
+    "description": "Jacobs School student center. Tutoring, mentor matching, scholarship programs, and a project-based makerspace component. Especially strong for first- and second-year engineering students.",
+    "skillsItBuilds": ["academic support", "mentor relationships", "engineering project access", "community"],
+    "url": "https://idea.ucsd.edu/"
+  }
+]
