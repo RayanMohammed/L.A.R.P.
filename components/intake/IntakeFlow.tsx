@@ -1,37 +1,47 @@
 "use client";
 
-import { useState } from "react";
-import { Dashboard } from "@/components/dashboard/Dashboard";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+import { DashboardPlaceholder } from "@/components/dashboard/DashboardPlaceholder";
+import { LanguageSwitcher } from "@/components/i18n/LanguageSwitcher";
 import { LoadingPlan } from "@/components/intake/LoadingPlan";
+import { PlanCard } from "@/components/intake/PlanCard";
 import { Stepper } from "@/components/intake/Stepper";
 import { StepRole } from "@/components/intake/StepRole";
 import { StepSkills } from "@/components/intake/StepSkills";
 import { TelemetryAsciiBanner } from "@/components/telemetry/TelemetryAsciiBanner";
-import {
-  getCareerField,
-  getDefaultArchetypeIdForField,
-  type FieldId,
-} from "@/lib/plan/fields";
+import type { Language } from "@/lib/i18n/translations";
 import type { PlanResponse } from "@/lib/plan/types";
 
 type IntakeState = {
-  fieldId: FieldId | null;
+  roleId: string | null;
+  freeText: string;
   skills: string[];
   context: string;
 };
 
 const EMPTY_STATE: IntakeState = {
-  fieldId: null,
+  roleId: null,
+  freeText: "",
   skills: [],
   context: "",
 };
 
 export function IntakeFlow() {
+  const searchParams = useSearchParams();
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [intake, setIntake] = useState<IntakeState>(EMPTY_STATE);
   const [plan, setPlan] = useState<PlanResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [language, setLanguage] = useState<Language>("en");
+
+  useEffect(() => {
+    const lang = searchParams.get("lang");
+    if (lang === "es") {
+      setLanguage("es");
+    }
+  }, [searchParams]);
 
   async function generate(next: IntakeState) {
     setLoading(true);
@@ -41,9 +51,11 @@ export function IntakeFlow() {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          targetRoleId: getDefaultArchetypeIdForField(next.fieldId),
+          targetRoleId: next.roleId ?? undefined,
+          targetRoleFreeText: next.roleId ? undefined : next.freeText,
           currentSkills: next.skills,
           context: next.context || undefined,
+          language,
         }),
       });
       const data = await res.json();
@@ -70,17 +82,23 @@ export function IntakeFlow() {
 
   return (
     <div className="flex w-full flex-1 flex-col gap-10 px-4 py-8 sm:px-6 sm:py-12 lg:px-10 xl:px-14">
+      <div className="no-print flex justify-end">
+        <LanguageSwitcher language={language} onChange={setLanguage} />
+      </div>
+
       <TelemetryAsciiBanner />
 
       <div className="no-print flex justify-center">
-        <Stepper current={step} />
+        <Stepper current={step} language={language} />
       </div>
 
       {step === 1 ? (
         <StepRole
-          initialFieldId={intake.fieldId}
-          onSubmit={({ fieldId }) => {
-            setIntake((s) => ({ ...s, fieldId, skills: [] }));
+          initialRoleId={intake.roleId}
+          initialFreeText={intake.freeText}
+          language={language}
+          onSubmit={({ roleId, freeText }) => {
+            setIntake((s) => ({ ...s, roleId, freeText }));
             setStep(2);
           }}
         />
@@ -88,13 +106,13 @@ export function IntakeFlow() {
 
       {step === 2 ? (
         loading ? (
-          <LoadingPlan />
+          <LoadingPlan language={language} />
         ) : (
           <>
             <StepSkills
-              fieldId={intake.fieldId}
               initialSkills={intake.skills}
               initialContext={intake.context}
+              language={language}
               onBack={() => setStep(1)}
               onSubmit={({ skills, context }) => {
                 const next = { ...intake, skills, context };
@@ -115,13 +133,10 @@ export function IntakeFlow() {
       ) : null}
 
       {step === 3 && plan ? (
-        <Dashboard
-          field={getCareerField(intake.fieldId)}
-          plan={plan}
-          selectedSkills={intake.skills}
-          context={intake.context}
-          onStartOver={startOver}
-        />
+        <>
+          <DashboardPlaceholder plan={plan} language={language} />
+          <PlanCard plan={plan} language={language} onStartOver={startOver} />
+        </>
       ) : null}
     </div>
   );

@@ -2,50 +2,63 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
-import { t } from "@/lib/i18n/translations";
-import { CAREER_FIELDS, type FieldId } from "@/lib/plan/fields";
+import {
+  tArchetypeJargonNote,
+  tArchetypeName,
+  tArchetypeSummary,
+  tArchetypeTimelineShort,
+} from "@/lib/i18n/dataTranslations";
+import { type Language, t } from "@/lib/i18n/translations";
+import { ARCHETYPES } from "@/lib/plan/data";
 
 type StepRoleProps = {
-  initialFieldId: FieldId | null;
-  onSubmit: (value: { fieldId: FieldId }) => void;
+  initialRoleId: string | null;
+  initialFreeText: string;
+  language?: Language;
+  onSubmit: (value: { roleId: string | null; freeText: string }) => void;
 };
 
 export function StepRole({
-  initialFieldId,
+  initialRoleId,
+  initialFreeText,
+  language = "en",
   onSubmit,
 }: StepRoleProps) {
-  const [fieldId, setFieldId] = useState<FieldId | null>(initialFieldId);
+  const [roleId, setRoleId] = useState<string | null>(initialRoleId);
+  const [freeText, setFreeText] = useState(initialFreeText);
+  const [showFreeText, setShowFreeText] = useState(Boolean(initialFreeText));
 
-  const canContinue = Boolean(fieldId);
+  const canContinue = Boolean(roleId) || freeText.trim().length > 2;
 
   return (
     <section className="w-full flex-1 space-y-8">
-      <header className="space-y-3">
-        <p className="font-label text-[10px] font-bold uppercase tracking-[0.22em] text-cyber">
-          Step 01 / Target
+      <header className="space-y-4">
+        <p className="font-label text-xs font-bold uppercase tracking-[0.22em] text-cyber">
+          {t("step1Eyebrow", language)}
         </p>
-        <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          {t("step1Heading")}
+        <h2 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+          {t("step1Heading", language)}
         </h2>
-        <p className="max-w-2xl font-mono text-sm leading-relaxed text-muted-strong">
-          Pick the broad lane that feels closest. You can specialize later; this
-          just shapes the questions and dashboard.
+        <p className="max-w-3xl font-mono text-base leading-relaxed text-muted-strong">
+          {t("step1Subheading", language)}
         </p>
       </header>
 
-      <ul className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {CAREER_FIELDS.map((field) => {
-          const selected = fieldId === field.id;
+      <ul className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
+        {ARCHETYPES.map((a) => {
+          const selected = roleId === a.id;
+          const jargonNote = tArchetypeJargonNote(a, language);
           return (
-            <li key={field.id}>
+            <li key={a.id}>
               <button
                 type="button"
                 onClick={() => {
-                  setFieldId(field.id);
+                  setRoleId(a.id);
+                  if (showFreeText) setFreeText("");
                 }}
                 aria-pressed={selected}
                 className={[
-                  "min-h-52 w-full border bg-panel px-5 py-5 text-left transition-colors sm:min-h-56",
+                  "h-full w-full border bg-panel px-5 py-4 text-left transition-colors",
                   "hover:border-cyber hover:bg-surface-2",
                   selected
                     ? "border-cyber bg-cyber-dim shadow-[0_0_18px_rgba(100,149,237,0.18)]"
@@ -54,24 +67,19 @@ export function StepRole({
               >
                 <div className="flex items-baseline justify-between gap-2">
                   <span className="text-lg font-medium text-foreground">
-                    {field.name}
+                    {tArchetypeName(a, language)}
                   </span>
-                  <span className="font-label text-[10px] font-semibold uppercase tracking-wider text-muted">
-                    {field.sampleRoles.length} paths
+                  <span className="font-label text-xs font-semibold uppercase tracking-wider text-muted">
+                    {tArchetypeTimelineShort(a, language)}
                   </span>
                 </div>
-                <p className="mt-4 text-sm capitalize leading-relaxed text-muted">
-                  {field.summary}
-                </p>
-                <ul className="mt-5 flex flex-wrap gap-2">
-                  {field.sampleRoles.slice(0, 3).map((role) => (
-                    <li
-                      key={role}
-                      className="border border-border bg-bg/40 px-2.5 py-1 font-mono text-[10px] capitalize text-muted-strong"
-                    >
-                      {role}
+                <ul className="mt-3 list-disc space-y-1.5 pl-5 text-base leading-snug text-muted">
+                  <li>{tArchetypeSummary(a, language)}</li>
+                  {jargonNote ? (
+                    <li className="font-mono text-sm italic text-muted/70">
+                      {jargonNote}
                     </li>
-                  ))}
+                  ) : null}
                 </ul>
               </button>
             </li>
@@ -79,16 +87,42 @@ export function StepRole({
         })}
       </ul>
 
+      <div className="border border-dashed border-border bg-panel/40 p-4">
+        {showFreeText ? (
+          <label className="block space-y-2">
+            <span className="font-label text-xs font-bold uppercase tracking-[0.18em] text-muted-strong">
+              {t("step1FreeTextLabel", language)}
+            </span>
+            <textarea
+              value={freeText}
+              onChange={(e) => {
+                setFreeText(e.target.value);
+                if (e.target.value.trim().length > 0) setRoleId(null);
+              }}
+              placeholder={t("step1FreeTextPlaceholder", language)}
+              rows={2}
+              className="w-full resize-y border border-border bg-bg p-4 font-mono text-base text-foreground placeholder:text-muted/70 focus:border-cyber focus:outline-none"
+            />
+          </label>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setShowFreeText(true)}
+            className="font-mono text-base text-cyber underline-offset-4 hover:underline"
+          >
+            {t("step1NoneFitButton", language)}
+          </button>
+        )}
+      </div>
+
       <div className="flex items-center justify-end">
         <Button
           variant="primary"
           size="lg"
           disabled={!canContinue}
-          onClick={() => {
-            if (fieldId) onSubmit({ fieldId });
-          }}
+          onClick={() => onSubmit({ roleId, freeText: freeText.trim() })}
         >
-          Continue →
+          {t("step1Continue", language)}
         </Button>
       </div>
     </section>

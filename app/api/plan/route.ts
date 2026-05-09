@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getArchetype, getResource, RESOURCES } from "@/lib/plan/data";
+import { getArchetype, getResource, getTopResources } from "@/lib/plan/data";
 import { GROQ_MODEL, getGroq } from "@/lib/plan/groq";
 import { buildUserPrompt, SYSTEM_PROMPT } from "@/lib/plan/prompt";
+import { researchFreeTextRole } from "@/lib/plan/roleResearch";
 import {
   type ActionItem,
   LlmPlanSchema,
@@ -54,10 +55,38 @@ export async function POST(req: Request) {
     );
   }
 
+  // If the student typed a free-text role with no archetype match, research
+  // it with Compound Mini before building the plan prompt. This replaces
+  // hallucinated requirements with real entry-level signals from the web.
+  // Never throws — degrades to an LLM-only or minimal context on failure.
+  const enrichedRole =
+    !archetype && parsed.targetRoleFreeText
+      ? await researchFreeTextRole(parsed.targetRoleFreeText)
+      : null;
+
+  // Pre-filter the resource catalog with semantic search so we only send the
+  // top-k most relevant resources to Groq (large token saving as the catalog
+  // grows). For free-text roles we use the enriched roleSummary as the query
+  // — short raw inputs like "immigration paralegal" don't carry enough signal
+  // for the embedding model on their own. Falls back to the full list on any
+  // embedding failure.
+  const roleDescription = archetype
+    ? `${archetype.name}: ${archetype.summary}`
+    : enrichedRole
+      ? `${enrichedRole.rawInput}: ${enrichedRole.roleSummary}`
+      : parsed.targetRoleFreeText ?? "";
+
+  const filteredResources = await getTopResources({
+    roleDescription,
+    currentSkills: parsed.currentSkills,
+    topK: 6,
+  });
+
   const userPrompt = buildUserPrompt({
     request: parsed,
     archetype,
-    resources: RESOURCES,
+    enrichedRole,
+    resources: filteredResources,
   });
 
   let completion;

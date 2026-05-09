@@ -33,6 +33,8 @@ app/
 ├── layout.tsx                 # Root metadata and app shell
 └── page.tsx                   # Home page that renders the intake flow
 components/
+├── dashboard/
+│   └── DashboardPlaceholder.tsx # Post-onboarding dashboard scaffold
 ├── intake/
 │   ├── IntakeFlow.tsx         # 3-step client flow: role → skills/context → plan
 │   ├── LoadingPlan.tsx        # Loading state while Groq generates a plan

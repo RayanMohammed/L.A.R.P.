@@ -19,10 +19,10 @@ const buttonVariants = cva(
         link: "border-transparent text-cyber underline-offset-4 hover:underline",
       },
       size: {
-        sm: "h-8 px-3 text-[10px]",
-        md: "h-10 px-4 text-[11px]",
-        lg: "h-11 px-5 text-xs",
-        icon: "h-9 w-9",
+        sm: "h-9 px-4 text-xs",
+        md: "h-11 px-5 text-sm",
+        lg: "h-12 px-6 text-sm",
+        icon: "h-10 w-10 text-sm",
       },
     },
     defaultVariants: {

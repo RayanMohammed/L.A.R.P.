@@ -1,19 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { type Language, t, type TranslationKey } from "@/lib/i18n/translations";
 
-const LINES = [
-  "Reading the role…",
-  "Mapping what you have…",
-  "Picking campus moves with the highest leverage…",
-  "Writing your week…",
+const LINE_KEYS: ReadonlyArray<TranslationKey> = [
+  "loading1",
+  "loading2",
+  "loading3",
+  "loading4",
 ];
 
-export function LoadingPlan() {
+type LoadingPlanProps = {
+  language?: Language;
+};
+
+export function LoadingPlan({ language = "en" }: LoadingPlanProps) {
   const [i, setI] = useState(0);
   useEffect(() => {
     const id = setInterval(
-      () => setI((prev) => (prev + 1) % LINES.length),
+      () => setI((prev) => (prev + 1) % LINE_KEYS.length),
       1400,
     );
     return () => clearInterval(id);
@@ -35,7 +40,7 @@ export function LoadingPlan() {
         ))}
       </div>
       <p className="font-mono text-sm text-muted-strong transition-opacity">
-        {LINES[i]}
+        {t(LINE_KEYS[i], language)}
       </p>
     </section>
   );

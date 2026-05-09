@@ -28,6 +28,29 @@ export type CampusResource = {
   url: string;
 };
 
+export const SUPPORTED_LANGUAGES = ["en", "es"] as const;
+export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
+
+/**
+ * Structured role context extracted from Compound Mini's web search.
+ * Used when the student enters a free-text role with no archetype match.
+ * Replaces the bare freeText string in buildUserPrompt.
+ */
+export type EnrichedRoleContext = {
+  /** The role name as the student typed it. */
+  rawInput: string;
+  /** 1–2 sentence plain-English description of what this role actually does. */
+  roleSummary: string;
+  /** 4–8 concrete skills entry-level candidates need. */
+  requiredSkills: string[];
+  /** What recruiters or hiring managers look for at the entry level. */
+  entryLevelSignals: string[];
+  /** Typical timeline to first opportunity (e.g. "6–12 months"). */
+  typicalTimeline: string;
+  /** Whether web search was used or whether we fell back to LLM knowledge. */
+  source: "web_search" | "llm_fallback";
+};
+
 /** Input from the client (the 3-step intake form). */
 export const PlanRequestSchema = z
   .object({
@@ -35,6 +58,7 @@ export const PlanRequestSchema = z
     targetRoleFreeText: z.string().min(1).max(280).optional(),
     currentSkills: z.array(z.string().min(1).max(120)).max(40).default([]),
     context: z.string().max(1500).optional(),
+    language: z.enum(SUPPORTED_LANGUAGES).default("en"),
   })
   .refine((v) => Boolean(v.targetRoleId || v.targetRoleFreeText), {
     message: "targetRoleId or targetRoleFreeText is required",

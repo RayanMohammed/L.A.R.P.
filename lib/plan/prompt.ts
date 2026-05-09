@@ -1,4 +1,15 @@
-import type { CampusResource, JobArchetype, PlanRequest } from "./types";
+import type {
+  CampusResource,
+  EnrichedRoleContext,
+  JobArchetype,
+  PlanRequest,
+  SupportedLanguage,
+} from "./types";
+
+const LANGUAGE_DIRECTIVES: Record<SupportedLanguage, string> = {
+  en: "Write every prose field (summary, gap, skillBuilt, jobUnlocked, thisWeekAction) in clear, plain English.",
+  es: "Escribe cada campo de texto (summary, gap, skillBuilt, jobUnlocked, thisWeekAction) en español claro y sencillo. No traduzcas los identificadores de recursos (resourceId); déjalos exactamente como aparecen en la lista.",
+};
 
 /**
  * The L.A.R.P. system prompt. The LLM is constrained to:
@@ -51,26 +62,50 @@ JSON schema (return exactly this shape):
 export function buildUserPrompt(args: {
   request: PlanRequest;
   archetype: JobArchetype | null;
+  enrichedRole?: EnrichedRoleContext | null;
   resources: CampusResource[];
 }): string {
-  const { request, archetype, resources } = args;
+  const { request, archetype, enrichedRole, resources } = args;
 
-  const targetBlock = archetype
-    ? JSON.stringify(
-        {
-          id: archetype.id,
-          name: archetype.name,
-          summary: archetype.summary,
-          jargonNote: archetype.jargonNote,
-          requiredSkills: archetype.requiredSkills,
-          niceToHaveSkills: archetype.niceToHaveSkills,
-          typicalTimeline: archetype.typicalTimeline,
-          signalsRecruitersWant: archetype.signalsRecruitersWant,
-        },
-        null,
-        2,
-      )
-    : JSON.stringify({ freeText: request.targetRoleFreeText }, null, 2);
+  let targetBlock: string;
+  if (archetype) {
+    targetBlock = JSON.stringify(
+      {
+        id: archetype.id,
+        name: archetype.name,
+        summary: archetype.summary,
+        jargonNote: archetype.jargonNote,
+        requiredSkills: archetype.requiredSkills,
+        niceToHaveSkills: archetype.niceToHaveSkills,
+        typicalTimeline: archetype.typicalTimeline,
+        signalsRecruitersWant: archetype.signalsRecruitersWant,
+      },
+      null,
+      2,
+    );
+  } else if (enrichedRole) {
+    // Free-text role enriched with live web research — same shape as an
+    // archetype block so the system prompt's instructions apply uniformly.
+    targetBlock = JSON.stringify(
+      {
+        name: enrichedRole.rawInput,
+        summary: enrichedRole.roleSummary,
+        requiredSkills: enrichedRole.requiredSkills,
+        niceToHaveSkills: [],
+        typicalTimeline: enrichedRole.typicalTimeline,
+        signalsRecruitersWant: enrichedRole.entryLevelSignals,
+        _source: enrichedRole.source,
+      },
+      null,
+      2,
+    );
+  } else {
+    targetBlock = JSON.stringify(
+      { freeText: request.targetRoleFreeText },
+      null,
+      2,
+    );
+  }
 
   // Compact each resource so we don't burn tokens on prose; the LLM only needs
   // enough to choose intelligently.
@@ -81,6 +116,8 @@ export function buildUserPrompt(args: {
     description: r.description,
     skillsItBuilds: r.skillsItBuilds,
   }));
+
+  const languageDirective = LANGUAGE_DIRECTIVES[request.language];
 
   return [
     "TARGET ROLE:",
@@ -94,6 +131,9 @@ export function buildUserPrompt(args: {
     "",
     "AVAILABLE CAMPUS RESOURCES (you must reference these by id):",
     JSON.stringify(resourceList, null, 2),
+    "",
+    `OUTPUT LANGUAGE: ${request.language}`,
+    languageDirective,
     "",
     "Return the JSON object now.",
   ]

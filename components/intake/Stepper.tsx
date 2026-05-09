@@ -1,25 +1,33 @@
+import { type Language, t, type TranslationKey } from "@/lib/i18n/translations";
+
 type StepperProps = {
   current: 1 | 2 | 3;
+  language?: Language;
 };
 
-const STEPS = ["Pick a field", "Map what you have", "Dashboard"];
+const STEP_LABEL_KEYS: ReadonlyArray<TranslationKey> = [
+  "stepperPickTarget",
+  "stepperMapWhatYouHave",
+  "stepperYourWeek",
+];
 
-export function Stepper({ current }: StepperProps) {
+export function Stepper({ current, language = "en" }: StepperProps) {
   return (
     <ol
       aria-label="Progress"
-      className="no-print flex flex-wrap items-center gap-x-3 gap-y-2 font-label text-[10px] font-semibold uppercase tracking-[0.18em] text-muted"
+      className="no-print flex flex-wrap items-center gap-x-4 gap-y-3 font-label text-xs font-semibold uppercase tracking-[0.18em] text-muted"
     >
-      {STEPS.map((label, i) => {
+      {STEP_LABEL_KEYS.map((key, i) => {
         const idx = (i + 1) as 1 | 2 | 3;
         const active = idx === current;
         const done = idx < current;
+        const label = t(key, language);
         return (
-          <li key={label} className="flex items-center gap-2">
+          <li key={key} className="flex items-center gap-2">
             <span
               aria-current={active ? "step" : undefined}
               className={[
-                "flex h-5 w-5 items-center justify-center border font-mono text-[10px] font-semibold",
+                "flex h-7 w-7 items-center justify-center border font-mono text-xs font-semibold",
                 done
                   ? "border-cyber bg-cyber text-bg"
                   : active
@@ -42,7 +50,7 @@ export function Stepper({ current }: StepperProps) {
               {label}
             </span>
             {idx !== 3 ? (
-              <span aria-hidden className="ml-1 h-px w-6 bg-border sm:w-10" />
+              <span aria-hidden className="ml-1 h-px w-8 bg-border sm:w-12" />
             ) : null}
           </li>
         );
