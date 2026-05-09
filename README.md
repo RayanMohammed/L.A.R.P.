@@ -45,6 +45,8 @@ components/
 └── ui/
     └── Button.tsx             # Shared button variants
 lib/
+├── i18n/
+│   └── translations.ts        # UI copy keys for English/Spanish labels
 ├── plan/
 │   ├── data/
 │   │   ├── campusResources.json # Curated UCSD opportunities

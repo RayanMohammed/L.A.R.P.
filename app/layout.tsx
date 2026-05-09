@@ -31,14 +31,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable} ${label.variable}`}>
-      <body className="min-h-dvh bg-bg text-foreground antialiased flex flex-col">
+      <body className="flex min-h-dvh w-full flex-col bg-bg text-foreground antialiased">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-3 focus:py-2 focus:bg-panel focus:text-foreground focus:border focus:border-cyber"
         >
           Skip to content
         </a>
-        <main id="main" className="telemetry-grid-bg flex-1 min-h-0 flex flex-col">
+        <main id="main" className="telemetry-grid-bg flex min-h-0 w-full flex-1 flex-col">
           {children}
         </main>
       </body>

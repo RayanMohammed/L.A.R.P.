@@ -2,14 +2,15 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { t, type TranslationKey } from "@/lib/i18n/translations";
 import { SKILL_GROUPS } from "@/lib/plan/skillOptions";
 
 const QUICK_CONTEXT_CHIPS = [
-  "I'm switching majors",
-  "I'm a transfer student",
-  "I'm first-gen",
-  "I'm working part-time",
-] as const;
+  "chipSwitchingMajors",
+  "chipTransfer",
+  "chipFirstGen",
+  "chipWorkingPartTime",
+] as const satisfies readonly TranslationKey[];
 
 type StepSkillsProps = {
   initialSkills: string[];
@@ -53,7 +54,7 @@ export function StepSkills({
   }
 
   return (
-    <section className="space-y-8">
+    <section className="w-full flex-1 space-y-8">
       <header className="space-y-3">
         <p className="font-label text-[10px] font-bold uppercase tracking-[0.22em] text-cyber">
           Step 02 / Inputs
@@ -100,14 +101,15 @@ export function StepSkills({
 
       <div className="space-y-2">
         <span className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-muted-strong">
-          Anything that describes you?
+          {t("quickContextLabel")}
         </span>
         <div className="flex flex-wrap gap-2">
-          {QUICK_CONTEXT_CHIPS.map((label) => {
+          {QUICK_CONTEXT_CHIPS.map((key) => {
+            const label = t(key);
             const active = context.includes(label);
             return (
               <button
-                key={label}
+                key={key}
                 type="button"
                 onClick={() => toggleContextChip(label)}
                 aria-pressed={active}
@@ -127,12 +129,12 @@ export function StepSkills({
 
       <label className="block space-y-2">
         <span className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-muted-strong">
-          Anything else worth knowing?
+          {t("contextLabel")}
         </span>
         <textarea
           value={context}
           onChange={(e) => setContext(e.target.value)}
-          placeholder="Optional. e.g. 'I'm a transfer student' or 'I already have an internship lined up but want a stretch role'"
+          placeholder={t("contextPlaceholder")}
           rows={3}
           className="w-full resize-y border border-border bg-panel p-3 font-mono text-sm text-foreground placeholder:text-muted/70 focus:border-cyber focus:outline-none"
         />

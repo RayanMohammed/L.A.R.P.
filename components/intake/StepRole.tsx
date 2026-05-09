@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { t } from "@/lib/i18n/translations";
 import { ARCHETYPES } from "@/lib/plan/data";
 
 type StepRoleProps = {
@@ -22,13 +23,13 @@ export function StepRole({
   const canContinue = Boolean(roleId) || freeText.trim().length > 2;
 
   return (
-    <section className="space-y-8">
+    <section className="w-full flex-1 space-y-8">
       <header className="space-y-3">
         <p className="font-label text-[10px] font-bold uppercase tracking-[0.22em] text-cyber">
           Step 01 / Target
         </p>
         <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          Pick a direction — you can always change it.
+          {t("step1Heading")}
         </h2>
         <p className="max-w-2xl font-mono text-sm leading-relaxed text-muted-strong">
           Pick one. You don&apos;t have to be sure — we just need somewhere to
@@ -36,7 +37,7 @@ export function StepRole({
         </p>
       </header>
 
-      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+      <ul className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
         {ARCHETYPES.map((a) => {
           const selected = roleId === a.id;
           return (
@@ -62,14 +63,14 @@ export function StepRole({
                     {a.typicalTimeline.split("—")[0].trim()}
                   </span>
                 </div>
-                <p className="mt-1 text-sm leading-snug text-muted">
-                  {a.summary}
-                </p>
-                {a.jargonNote ? (
-                  <p className="mt-1.5 font-mono text-xs italic leading-snug text-muted/70">
-                    {a.jargonNote}
-                  </p>
-                ) : null}
+                <ul className="mt-2 list-disc space-y-1 pl-4 text-sm leading-snug text-muted">
+                  <li>{a.summary}</li>
+                  {a.jargonNote ? (
+                    <li className="font-mono text-xs italic text-muted/70">
+                      {a.jargonNote}
+                    </li>
+                  ) : null}
+                </ul>
               </button>
             </li>
           );

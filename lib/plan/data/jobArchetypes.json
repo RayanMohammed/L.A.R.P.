@@ -358,5 +358,125 @@
       "calm writing about a thing that broke",
       "curiosity about how the box works"
     ]
+  },
+  {
+    "id": "healthcare-research-intern",
+    "name": "Healthcare Research Intern",
+    "summary": "Supports medical or public-health research teams with study coordination, data cleanup, patient-facing materials, or literature review.",
+    "jargonNote": "This means helping run medical studies or supporting hospital teams with data and documentation — a common first step toward medicine or public health.",
+    "requiredSkills": [
+      "careful note-taking and documentation",
+      "basic spreadsheet cleanup",
+      "reading clinical or public-health research at a beginner level",
+      "patient privacy and ethics awareness",
+      "clear email communication",
+      "following a protocol without skipping steps",
+      "comfort asking clarifying questions",
+      "summarizing findings in plain language"
+    ],
+    "niceToHaveSkills": [
+      "biology, psychology, public health, or sociology coursework",
+      "volunteer experience with patients or community programs",
+      "basic statistics",
+      "bilingual communication",
+      "experience scheduling or coordinating people"
+    ],
+    "typicalTimeline": "6–18 months — often starts with volunteering, coursework, or a research assistant role",
+    "signalsRecruitersWant": [
+      "reliability with sensitive information",
+      "a clear reason for caring about health work",
+      "evidence of careful documentation",
+      "experience working with people who are under stress"
+    ]
+  },
+  {
+    "id": "nonprofit-intern",
+    "name": "Nonprofit / Community Program Intern",
+    "summary": "Helps a mission-driven organization run events, support volunteers, write materials, collect data, or serve a specific community.",
+    "jargonNote": "This is working for an organization whose goal is to help people, not make profit — you might run events, manage volunteers, or write grant proposals.",
+    "requiredSkills": [
+      "clear writing for different audiences",
+      "event or workshop coordination",
+      "volunteer communication",
+      "basic spreadsheet tracking",
+      "community listening",
+      "following up without being pushy",
+      "turning messy needs into a simple plan",
+      "reflecting on impact, not just effort"
+    ],
+    "niceToHaveSkills": [
+      "campus org leadership",
+      "service or mutual-aid experience",
+      "bilingual communication",
+      "Canva or simple design skills",
+      "grant or fundraising exposure"
+    ],
+    "typicalTimeline": "3–12 months — one of the fastest paths from campus involvement to real responsibility",
+    "signalsRecruitersWant": [
+      "evidence that people trusted you with responsibility",
+      "a story about helping a specific community",
+      "clear writing samples",
+      "follow-through across multiple weeks, not one event"
+    ]
+  },
+  {
+    "id": "education-tutor-intern",
+    "name": "Education / Tutoring Intern",
+    "summary": "Works directly with students through tutoring, mentoring, classroom support, curriculum help, or college-access programming.",
+    "jargonNote": "This means working directly with students — tutoring, mentoring, or helping run after-school or college-access programs.",
+    "requiredSkills": [
+      "explaining ideas in simple steps",
+      "patience with repeated questions",
+      "lesson or activity planning",
+      "tracking student progress",
+      "giving encouraging feedback",
+      "showing up consistently",
+      "adapting when a student is confused",
+      "communicating with a supervisor"
+    ],
+    "niceToHaveSkills": [
+      "tutoring classmates or siblings",
+      "experience mentoring younger students",
+      "bilingual communication",
+      "coursework in education, psychology, or the subject being taught",
+      "public speaking or workshop facilitation"
+    ],
+    "typicalTimeline": "3–9 months — tutoring and mentoring roles are often accessible early",
+    "signalsRecruitersWant": [
+      "proof that students came back or improved",
+      "a calm story about helping someone struggle through a concept",
+      "consistent weekly commitment",
+      "comfort explaining without judging"
+    ]
+  },
+  {
+    "id": "bilingual-outreach-intern",
+    "name": "Bilingual Outreach Intern",
+    "summary": "Uses language and cultural fluency to help organizations reach families, students, patients, or community members who are often missed.",
+    "jargonNote": "This role uses your second language as a professional skill — translating, connecting communities to services, and building trust across language barriers.",
+    "requiredSkills": [
+      "speaking and writing clearly in two languages",
+      "translating meaning, not just words",
+      "respectful community outreach",
+      "basic event or appointment coordination",
+      "listening without making assumptions",
+      "keeping private information private",
+      "writing short follow-up messages",
+      "explaining services in plain language"
+    ],
+    "niceToHaveSkills": [
+      "experience helping family or community members navigate systems",
+      "campus cultural org involvement",
+      "public health, education, or nonprofit interest",
+      "simple flyer or social media design",
+      "comfort speaking to groups"
+    ],
+    "typicalTimeline": "3–12 months — lived language experience can become a professional signal quickly",
+    "signalsRecruitersWant": [
+      "trust-building across cultures or languages",
+      "evidence of reliability with sensitive conversations",
+      "clear examples of translating or explaining complex information",
+      "community commitment beyond a single event"
+    ]
   }
 ]

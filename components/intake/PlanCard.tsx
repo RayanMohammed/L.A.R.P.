@@ -19,7 +19,7 @@ const RESOURCE_TYPE_LABEL: Record<string, string> = {
 
 export function PlanCard({ plan, onStartOver }: PlanCardProps) {
   return (
-    <section className="space-y-8">
+    <section className="w-full flex-1 space-y-8">
       <div className="no-print flex flex-wrap items-center justify-between gap-3">
         <Button variant="ghost" size="md" onClick={onStartOver}>
           ← Start over
@@ -33,7 +33,7 @@ export function PlanCard({ plan, onStartOver }: PlanCardProps) {
         </Button>
       </div>
 
-      <article className="print-card space-y-6 border border-border bg-panel p-6 sm:p-8">
+      <article className="print-card w-full space-y-6 border border-border bg-panel p-6 sm:p-8">
         <header className="space-y-2 border-b border-border pb-5">
           <p className="font-label text-[10px] font-bold uppercase tracking-[0.22em] text-cyber">
             This week — your plan

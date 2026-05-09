@@ -21,7 +21,7 @@ export function LoadingPlan() {
 
   return (
     <section
-      className="flex min-h-[320px] flex-col items-center justify-center gap-4 border border-dashed border-border bg-panel/40 p-8 text-center"
+      className="flex min-h-[320px] w-full flex-1 flex-col items-center justify-center gap-4 border border-dashed border-border bg-panel/40 p-8 text-center"
       aria-busy="true"
       aria-live="polite"
     >
