@@ -10,6 +10,9 @@ export const translations = {
     languageEnglish: "English",
     languageSpanish: "Español",
 
+    // Telemetry banner
+    telemetryAcronym: "Learn, Apply, Reflect, Progress",
+
     // Stepper
     stepperPickTarget: "Pick a target",
     stepperMapWhatYouHave: "Map what you have",
@@ -87,6 +90,35 @@ export const translations = {
       "Placeholder for generated bullets and editable LaTeX export.",
     dashboardLocations: "Locations",
     dashboardNextSteps: "Next Steps",
+
+    // Dashboard
+    dashboardSectionEyebrow: "Dashboard",
+    dashboardTopIndustrySkills: "Top skills in industry",
+    dashboardSkillsRadarNeed: "Needed",
+    dashboardSkillsRadarHave: "You",
+    dashboardResumeInputs: "Resume inputs",
+    dashboardNoChipsSelected:
+      "No chips selected yet. The resume builder will still give you a starter template.",
+
+    // Resume builder
+    resumeBuilderEyebrow: "Resume builder",
+    resumeBuilderTitle: "Jake's Resume Template, prefilled",
+    resumeBuilderDescription:
+      "Paste a job description and any completed project notes, then click Go to rewrite the resume keywords. The preview shows the PDF as an employer would see it, and the LaTeX can be copied into Overleaf for easy editing.",
+    resumeBuilderCopyLatex: "Copy LaTeX",
+    resumeBuilderCopied: "Copied",
+    resumeBuilderDownloadPdf: "Download PDF",
+    resumeBuilderBuildingPdf: "Building PDF",
+    resumeBuilderJobDescriptionLabel: "Intended job description",
+    resumeBuilderJobDescriptionPlaceholder:
+      "Paste the internship or role description here. Keywords will be folded into the resume draft after you click Go.",
+    resumeBuilderProjectDescriptionLabel: "Projects or resume additions",
+    resumeBuilderProjectDescriptionPlaceholder:
+      "Describe projects, clubs, lab work, class assignments, or jobs you want included. Example: built a React site for a student org, cleaned survey data in Python, led event logistics.",
+    resumeBuilderGo: "Go",
+    resumeBuilderPdfViewer: "Inbuilt PDF viewer",
+    resumeBuilderCopyHint: "Copy LaTeX if you want to edit the source.",
+    resumeBuilderBuildingPreview: "Building PDF Preview...",
   },
   es: {
     // Home page
@@ -98,6 +130,9 @@ export const translations = {
     languageLabel: "Idioma",
     languageEnglish: "English",
     languageSpanish: "Español",
+
+    // Telemetry banner
+    telemetryAcronym: "Aprende, Aplica, Reflexiona, Progresa",
 
     // Stepper
     stepperPickTarget: "Elige una meta",
@@ -177,6 +212,35 @@ export const translations = {
       "Marcador para los puntos generados y la exportación editable en LaTeX.",
     dashboardLocations: "Ubicaciones",
     dashboardNextSteps: "Próximos pasos",
+
+    // Dashboard
+    dashboardSectionEyebrow: "Panel",
+    dashboardTopIndustrySkills: "Habilidades clave en la industria",
+    dashboardSkillsRadarNeed: "Necesario",
+    dashboardSkillsRadarHave: "Tú",
+    dashboardResumeInputs: "Datos del currículum",
+    dashboardNoChipsSelected:
+      "Aún no has seleccionado nada. El generador de currículum te dará una plantilla inicial de todos modos.",
+
+    // Resume builder
+    resumeBuilderEyebrow: "Generador de currículum",
+    resumeBuilderTitle: "Plantilla de currículum de Jake, prellenada",
+    resumeBuilderDescription:
+      "Pega una descripción de trabajo y notas de proyectos completados, luego haz clic en Listo para reescribir las palabras clave del currículum. La vista previa muestra el PDF tal como lo vería un empleador, y el LaTeX se puede copiar en Overleaf para editarlo fácilmente.",
+    resumeBuilderCopyLatex: "Copiar LaTeX",
+    resumeBuilderCopied: "Copiado",
+    resumeBuilderDownloadPdf: "Descargar PDF",
+    resumeBuilderBuildingPdf: "Generando PDF",
+    resumeBuilderJobDescriptionLabel: "Descripción del trabajo",
+    resumeBuilderJobDescriptionPlaceholder:
+      "Pega aquí la descripción de la pasantía o el rol. Las palabras clave se incorporarán al borrador del currículum después de hacer clic en Listo.",
+    resumeBuilderProjectDescriptionLabel: "Proyectos o secciones adicionales",
+    resumeBuilderProjectDescriptionPlaceholder:
+      "Describe proyectos, clubes, trabajo de laboratorio, tareas de clase o trabajos que quieras incluir. Ejemplo: hice un sitio en React para una organización estudiantil, limpié datos de encuestas en Python, lideré la logística de un evento.",
+    resumeBuilderGo: "Listo",
+    resumeBuilderPdfViewer: "Visor de PDF integrado",
+    resumeBuilderCopyHint: "Copia el LaTeX si quieres editar el código fuente.",
+    resumeBuilderBuildingPreview: "Generando vista previa del PDF...",
   },
 } as const;
 

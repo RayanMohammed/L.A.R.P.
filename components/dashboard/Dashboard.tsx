@@ -1,7 +1,9 @@
 "use client";
 
 import { ResumeBuilder } from "@/components/dashboard/ResumeBuilder";
+import { SkillsRadar } from "@/components/dashboard/SkillsRadar";
 import { Button } from "@/components/ui/Button";
+import { type Language, t, tResourceType } from "@/lib/i18n/translations";
 import type { CareerField } from "@/lib/plan/fields";
 import type { PlanResponse } from "@/lib/plan/types";
 
@@ -10,16 +12,8 @@ type DashboardProps = {
   plan: PlanResponse;
   selectedSkills: string[];
   context: string;
+  language?: Language;
   onStartOver: () => void;
-};
-
-const RESOURCE_TYPE_LABEL: Record<string, string> = {
-  club: "Club",
-  research: "Research",
-  workshop: "Workshop",
-  "internship-lite": "Internship-lite",
-  incubator: "Incubator",
-  program: "Program",
 };
 
 export function Dashboard({
@@ -27,22 +21,23 @@ export function Dashboard({
   plan,
   selectedSkills,
   context,
+  language = "en",
   onStartOver,
 }: DashboardProps) {
   return (
     <section className="w-full flex-1 space-y-8">
       <div className="no-print flex flex-wrap items-center justify-between gap-3">
         <Button variant="ghost" size="md" onClick={onStartOver}>
-          ← Start over
+          {t("planStartOver", language)}
         </Button>
         <Button variant="outline" size="md" onClick={() => window.print()}>
-          Print
+          {t("planPrint", language)}
         </Button>
       </div>
 
       <header className="space-y-3">
         <p className="font-label text-[10px] font-bold uppercase tracking-[0.22em] text-cyber">
-          Dashboard
+          {t("dashboardSectionEyebrow", language)}
         </p>
         <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
           {field?.name ?? plan.archetype.name}
@@ -53,11 +48,20 @@ export function Dashboard({
       </header>
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1.25fr)_minmax(22rem,0.75fr)]">
-        <WeeklyPlan plan={plan} />
+        <WeeklyPlan plan={plan} language={language} />
 
         <aside className="space-y-4">
-          <IndustrySkills field={field} plan={plan} />
-          <SelectedInputs selectedSkills={selectedSkills} context={context} />
+          <IndustrySkills
+            field={field}
+            plan={plan}
+            selectedSkills={selectedSkills}
+            language={language}
+          />
+          <SelectedInputs
+            selectedSkills={selectedSkills}
+            context={context}
+            language={language}
+          />
         </aside>
       </div>
 
@@ -66,17 +70,24 @@ export function Dashboard({
         plan={plan}
         selectedSkills={selectedSkills}
         context={context}
+        language={language}
       />
     </section>
   );
 }
 
-function WeeklyPlan({ plan }: { plan: PlanResponse }) {
+function WeeklyPlan({
+  plan,
+  language,
+}: {
+  plan: PlanResponse;
+  language: Language;
+}) {
   return (
     <article className="print-card w-full space-y-6 border border-border bg-panel p-6 sm:p-8">
       <header className="space-y-2 border-b border-border pb-5">
         <p className="font-label text-[10px] font-bold uppercase tracking-[0.22em] text-cyber">
-          This week — your plan
+          {t("planEyebrow", language)}
         </p>
         <h3 className="text-2xl font-semibold tracking-tight text-foreground">
           {plan.archetype.name}
@@ -105,26 +116,26 @@ function WeeklyPlan({ plan }: { plan: PlanResponse }) {
                 {item.resource.name}
               </a>
               <span className="ml-auto border border-border px-2 py-0.5 font-label text-[10px] font-semibold uppercase tracking-wider text-muted">
-                {RESOURCE_TYPE_LABEL[item.resource.type] ?? item.resource.type}
+                {tResourceType(item.resource.type, language)}
               </span>
             </div>
 
             <dl className="mt-4 space-y-3 text-sm leading-relaxed">
               <div className="grid grid-cols-[88px_1fr] gap-x-3">
                 <dt className="font-label text-[10px] font-bold uppercase tracking-wider text-muted">
-                  Gap
+                  {t("planGap", language)}
                 </dt>
                 <dd className="text-foreground/85">{item.gap}</dd>
               </div>
               <div className="grid grid-cols-[88px_1fr] gap-x-3">
                 <dt className="font-label text-[10px] font-bold uppercase tracking-wider text-muted">
-                  Skill
+                  {t("planSkill", language)}
                 </dt>
                 <dd className="text-foreground/85">{item.skillBuilt}</dd>
               </div>
               <div className="grid grid-cols-[88px_1fr] gap-x-3">
                 <dt className="font-label text-[10px] font-bold uppercase tracking-wider text-muted">
-                  Unlocks
+                  {t("planUnlocks", language)}
                 </dt>
                 <dd className="text-foreground/85">{item.jobUnlocked}</dd>
               </div>
@@ -132,7 +143,7 @@ function WeeklyPlan({ plan }: { plan: PlanResponse }) {
 
             <div className="mt-4 border border-cyber/40 bg-cyber-dim/60 p-3 text-sm text-cyber-bright">
               <span className="mr-2 font-label text-[10px] font-bold uppercase tracking-wider text-cyber">
-                Do this week →
+                {t("planDoThisWeek", language)}
               </span>
               {item.thisWeekAction}
             </div>
@@ -141,8 +152,10 @@ function WeeklyPlan({ plan }: { plan: PlanResponse }) {
       </ol>
 
       <footer className="border-t border-border pt-4 font-mono text-[11px] text-muted">
-        Generated by L.A.R.P. with {plan.model} ·{" "}
-        {new Date(plan.generatedAtMs).toLocaleString()}
+        {t("planFooterPrefix", language)} {plan.model} ·{" "}
+        {new Date(plan.generatedAtMs).toLocaleString(
+          language === "es" ? "es-ES" : "en-US",
+        )}
       </footer>
     </article>
   );
@@ -151,18 +164,33 @@ function WeeklyPlan({ plan }: { plan: PlanResponse }) {
 function IndustrySkills({
   field,
   plan,
+  selectedSkills,
+  language,
 }: {
   field: CareerField | undefined;
   plan: PlanResponse;
+  selectedSkills: string[];
+  language: Language;
 }) {
   const skills = field?.topIndustrySkills ?? plan.archetype.summary.split(", ");
+  const showRadar =
+    field?.topIndustrySkills && field.topIndustrySkills.length >= 3;
 
   return (
-    <section className="border border-border bg-panel p-5">
+    <section className="space-y-4 border border-border bg-panel p-5">
       <p className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-cyber">
-        Top skills in industry
+        {t("dashboardTopIndustrySkills", language)}
       </p>
-      <ul className="mt-4 grid gap-2">
+
+      {showRadar ? (
+        <SkillsRadar
+          industrySkills={field.topIndustrySkills}
+          selectedSkills={selectedSkills}
+          language={language}
+        />
+      ) : null}
+
+      <ul className="grid gap-2">
         {skills.map((skill) => (
           <li
             key={skill}
@@ -179,14 +207,16 @@ function IndustrySkills({
 function SelectedInputs({
   selectedSkills,
   context,
+  language,
 }: {
   selectedSkills: string[];
   context: string;
+  language: Language;
 }) {
   return (
     <section className="border border-border bg-panel p-5">
       <p className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-cyber">
-        Resume inputs
+        {t("dashboardResumeInputs", language)}
       </p>
       {selectedSkills.length > 0 ? (
         <ul className="mt-4 flex flex-wrap gap-2">
@@ -201,8 +231,7 @@ function SelectedInputs({
         </ul>
       ) : (
         <p className="mt-4 font-mono text-sm text-muted">
-          No chips selected yet. The resume builder will still give you a
-          starter template.
+          {t("dashboardNoChipsSelected", language)}
         </p>
       )}
       {context ? (

@@ -121,10 +121,11 @@ export default function HomePage() {
             {t("homeWelcome", language)}
           </TypingAnimation>
 
-          <Link href={`/plan?lang=${language}`} className="group inline-flex items-center justify-center border border-cyber bg-cyber-dim px-10 py-5 font-label text-sm font-bold uppercase tracking-[0.2em] text-cyber-bright transition-all duration-100 ease-linear hover:bg-cyber hover:text-bg active:translate-x-[3px] active:translate-y-[3px] active:shadow-none">
-            <span className="flex items-center gap-3">
-              {t("homeStartIntake", language)} <span className="transition-transform group-hover:translate-x-1">→</span>
-            </span>
+          <Link
+            href={`/plan?lang=${language}`}
+            className="inline-flex items-center gap-2 border border-cyber bg-cyber-dim px-8 py-4 font-label text-sm font-bold uppercase tracking-[0.2em] text-cyber-bright transition-colors hover:bg-cyber hover:text-bg"
+          >
+            {t("homeStartIntake", language)} →
           </Link>
           
         </div>

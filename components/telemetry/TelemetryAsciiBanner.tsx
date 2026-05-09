@@ -1,5 +1,13 @@
+import { type Language, t } from "@/lib/i18n/translations";
+
+type TelemetryAsciiBannerProps = {
+  language?: Language;
+};
+
 /** Glowing lockup — readable everywhere; complements the pixel avatar. */
-export function TelemetryAsciiBanner() {
+export function TelemetryAsciiBanner({
+  language = "en",
+}: TelemetryAsciiBannerProps = {}) {
   return (
     <div className="w-full overflow-hidden mb-7 flex justify-start">
       <div className="flex flex-col items-start">
@@ -20,8 +28,8 @@ export function TelemetryAsciiBanner() {
  ███████╗██╗██║  ██║██╗██║  ██║██╗██║██╗  
  ╚══════╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝╚═╝  `}
         </div>
-        <p className="font-label mt-5 text-xs font-bold uppercase tracking-[0.22em] text-cyber-bright sm:text-sm">
-          Learn, Apply, Reflect, Progress
+        <p className="font-label mt-5 ml-[11px] text-xs font-bold uppercase tracking-[0.22em] text-cyber-bright sm:text-sm">
+          {t("telemetryAcronym", language)}
         </p>
       </div>
     </div>

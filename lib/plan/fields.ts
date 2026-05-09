@@ -315,3 +315,17 @@ export function getCareerField(fieldId: string | null | undefined): CareerField 
 export function getDefaultArchetypeIdForField(fieldId: string | null | undefined): string {
   return getCareerField(fieldId)?.defaultArchetypeId ?? "swe-intern";
 }
+
+/**
+ * Reverse-lookup: given an archetype id, find the career field that lists it
+ * in its relatedArchetypeIds. Returns undefined for free-text roles or when
+ * the archetype isn't tied to any field.
+ */
+export function getFieldForArchetypeId(
+  archetypeId: string | null | undefined,
+): CareerField | undefined {
+  if (!archetypeId) return undefined;
+  return CAREER_FIELDS.find((field) =>
+    field.relatedArchetypeIds.includes(archetypeId),
+  );
+}

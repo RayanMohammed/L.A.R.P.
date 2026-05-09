@@ -2,15 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { DashboardPlaceholder } from "@/components/dashboard/DashboardPlaceholder";
+import { Dashboard } from "@/components/dashboard/Dashboard";
 import { LanguageSwitcher } from "@/components/i18n/LanguageSwitcher";
 import { LoadingPlan } from "@/components/intake/LoadingPlan";
-import { PlanCard } from "@/components/intake/PlanCard";
 import { Stepper } from "@/components/intake/Stepper";
 import { StepRole } from "@/components/intake/StepRole";
 import { StepSkills } from "@/components/intake/StepSkills";
 import { TelemetryAsciiBanner } from "@/components/telemetry/TelemetryAsciiBanner";
 import type { Language } from "@/lib/i18n/translations";
+import { getFieldForArchetypeId } from "@/lib/plan/fields";
 import type { PlanResponse } from "@/lib/plan/types";
 
 type IntakeState = {
@@ -80,13 +80,19 @@ export function IntakeFlow() {
     setIntake(EMPTY_STATE);
   }
 
+  // Field is derived from the chosen archetype id. Free-text roles produce
+  // undefined here, and downstream components already handle that gracefully
+  // (Dashboard falls back to archetype name/summary, ResumeBuilder uses
+  // empty buzzword arrays, SkillsRadar hides itself).
+  const field = getFieldForArchetypeId(intake.roleId);
+
   return (
     <div className="flex w-full flex-1 flex-col gap-10 px-4 py-8 sm:px-6 sm:py-12 lg:px-10 xl:px-14">
       <div className="no-print flex justify-end">
         <LanguageSwitcher language={language} onChange={setLanguage} />
       </div>
 
-      <TelemetryAsciiBanner />
+      <TelemetryAsciiBanner language={language} />
 
       <div className="no-print flex justify-center">
         <Stepper current={step} language={language} />
@@ -113,6 +119,7 @@ export function IntakeFlow() {
               initialSkills={intake.skills}
               initialContext={intake.context}
               language={language}
+              fieldId={field?.id ?? null}
               onBack={() => setStep(1)}
               onSubmit={({ skills, context }) => {
                 const next = { ...intake, skills, context };
@@ -133,10 +140,14 @@ export function IntakeFlow() {
       ) : null}
 
       {step === 3 && plan ? (
-        <>
-          <DashboardPlaceholder plan={plan} language={language} />
-          <PlanCard plan={plan} language={language} onStartOver={startOver} />
-        </>
+        <Dashboard
+          field={field}
+          plan={plan}
+          selectedSkills={intake.skills}
+          context={intake.context}
+          language={language}
+          onStartOver={startOver}
+        />
       ) : null}
     </div>
   );

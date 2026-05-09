@@ -9,7 +9,8 @@ import {
   tSkillGroupLabel,
   type TranslationKey,
 } from "@/lib/i18n/translations";
-import { SKILL_GROUPS } from "@/lib/plan/skillOptions";
+import type { FieldId } from "@/lib/plan/fields";
+import { getSkillGroupsForField } from "@/lib/plan/skillOptions";
 
 const QUICK_CONTEXT_CHIPS = [
   "chipSwitchingMajors",
@@ -22,6 +23,7 @@ type StepSkillsProps = {
   initialSkills: string[];
   initialContext: string;
   language?: Language;
+  fieldId?: FieldId | null;
   onBack: () => void;
   onSubmit: (value: { skills: string[]; context: string }) => void;
 };
@@ -30,6 +32,7 @@ export function StepSkills({
   initialSkills,
   initialContext,
   language = "en",
+  fieldId = null,
   onBack,
   onSubmit,
 }: StepSkillsProps) {
@@ -37,6 +40,9 @@ export function StepSkills({
     new Set(initialSkills),
   );
   const [context, setContext] = useState(initialContext);
+  // Skill groups follow the chosen field. Free-text role → null → falls back
+  // to the default field's groups + shared groups inside getSkillGroupsForField.
+  const skillGroups = getSkillGroupsForField(fieldId);
 
   function toggle(value: string) {
     setSelected((prev) => {
@@ -76,7 +82,7 @@ export function StepSkills({
       </header>
 
       <div className="space-y-6">
-        {SKILL_GROUPS.map((group) => (
+        {skillGroups.map((group) => (
           <fieldset key={group.label} className="space-y-3">
             <legend className="font-label text-xs font-bold uppercase tracking-[0.18em] text-muted-strong">
               {tSkillGroupLabel(group.label, language)}

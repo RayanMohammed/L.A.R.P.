@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { type Language, t } from "@/lib/i18n/translations";
 import type { CareerField } from "@/lib/plan/fields";
 import type { PlanResponse } from "@/lib/plan/types";
 
@@ -10,6 +11,7 @@ type ResumeBuilderProps = {
   plan: PlanResponse;
   selectedSkills: string[];
   context: string;
+  language?: Language;
 };
 
 const STOP_WORDS = new Set([
@@ -43,6 +45,7 @@ export function ResumeBuilder({
   plan,
   selectedSkills,
   context,
+  language = "en",
 }: ResumeBuilderProps) {
   const [jobDescription, setJobDescription] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
@@ -142,21 +145,20 @@ export function ResumeBuilder({
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="space-y-2">
           <p className="font-label text-[10px] font-bold uppercase tracking-[0.22em] text-cyber">
-            Resume builder
+            {t("resumeBuilderEyebrow", language)}
           </p>
           <h3 className="text-2xl font-semibold tracking-tight text-foreground">
-            Jake&apos;s Resume Template, prefilled
+            {t("resumeBuilderTitle", language)}
           </h3>
           <p className="max-w-3xl font-mono text-sm leading-relaxed text-muted-strong">
-            Paste a job description and any completed project notes, then click
-            Go to rewrite the resume keywords. The preview shows the PDF as an
-            employer would see it, and the LaTeX can be copied into Overleaf for
-            easy editing.
+            {t("resumeBuilderDescription", language)}
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Button variant="outline" size="md" onClick={copyLatex}>
-            {copied ? "Copied" : "Copy LaTeX"}
+            {copied
+              ? t("resumeBuilderCopied", language)
+              : t("resumeBuilderCopyLatex", language)}
           </Button>
           <Button
             variant="primary"
@@ -164,7 +166,9 @@ export function ResumeBuilder({
             onClick={downloadPdf}
             disabled={downloading}
           >
-            {downloading ? "Building PDF" : "Download PDF"}
+            {downloading
+              ? t("resumeBuilderBuildingPdf", language)
+              : t("resumeBuilderDownloadPdf", language)}
           </Button>
         </div>
       </div>
@@ -173,12 +177,12 @@ export function ResumeBuilder({
         <div className="grid gap-4">
           <label className="block space-y-2">
             <span className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-muted-strong">
-              Intended job description
+              {t("resumeBuilderJobDescriptionLabel", language)}
             </span>
             <textarea
               value={jobDescription}
               onChange={(event) => setJobDescription(event.target.value)}
-              placeholder="Paste the internship or role description here. Keywords will be folded into the resume draft after you click Go."
+              placeholder={t("resumeBuilderJobDescriptionPlaceholder", language)}
               rows={8}
               className="min-h-48 w-full resize-y border border-border bg-bg p-3 font-mono text-sm text-foreground placeholder:text-muted/70 focus:border-cyber focus:outline-none"
             />
@@ -186,12 +190,15 @@ export function ResumeBuilder({
 
           <label className="block space-y-2">
             <span className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-muted-strong">
-              Projects or resume additions
+              {t("resumeBuilderProjectDescriptionLabel", language)}
             </span>
             <textarea
               value={projectDescription}
               onChange={(event) => setProjectDescription(event.target.value)}
-              placeholder="Describe projects, clubs, lab work, class assignments, or jobs you want included. Example: built a React site for a student org, cleaned survey data in Python, led event logistics."
+              placeholder={t(
+                "resumeBuilderProjectDescriptionPlaceholder",
+                language,
+              )}
               rows={8}
               className="min-h-48 w-full resize-y border border-border bg-bg p-3 font-mono text-sm text-foreground placeholder:text-muted/70 focus:border-cyber focus:outline-none"
             />
@@ -199,7 +206,7 @@ export function ResumeBuilder({
 
           <div className="flex justify-end">
             <Button variant="hot" size="md" onClick={applyResumeInputs}>
-              Go
+              {t("resumeBuilderGo", language)}
             </Button>
           </div>
         </div>
@@ -207,10 +214,10 @@ export function ResumeBuilder({
         <div className="space-y-2">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="font-label text-[10px] font-bold uppercase tracking-[0.18em] text-muted-strong">
-              Inbuilt PDF viewer
+              {t("resumeBuilderPdfViewer", language)}
             </span>
             <span className="font-mono text-[11px] text-muted">
-              Copy LaTeX if you want to edit the source.
+              {t("resumeBuilderCopyHint", language)}
             </span>
           </div>
           {pdfUrl ? (
@@ -221,7 +228,7 @@ export function ResumeBuilder({
             />
           ) : (
             <div className="flex h-[520px] items-center justify-center border border-border bg-bg font-mono text-sm text-muted">
-              Building PDF Preview...
+              {t("resumeBuilderBuildingPreview", language)}
             </div>
           )}
         </div>
