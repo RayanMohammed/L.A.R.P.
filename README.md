@@ -28,24 +28,37 @@ Open <http://localhost:3000>.
 
 ```
 app/
-├── api/plan/route.ts          # POST → Groq with the 4-step prompt chain
-├── layout.tsx
-├── globals.css
-└── page.tsx                   # 3-step intake → plan card
+├── api/plan/route.ts          # POST /api/plan → validate request, call Groq, hydrate resources
+├── globals.css                # Tailwind v4 theme tokens + global styles
+├── layout.tsx                 # Root metadata and app shell
+└── page.tsx                   # Home page that renders the intake flow
 components/
-├── intake/                    # Stepper, StepRole, StepSkills, LoadingPlan, PlanCard, IntakeFlow
-├── telemetry/                 # ASCII banner
-└── ui/                        # Button
+├── intake/
+│   ├── IntakeFlow.tsx         # 3-step client flow: role → skills/context → plan
+│   ├── LoadingPlan.tsx        # Loading state while Groq generates a plan
+│   ├── PlanCard.tsx           # Generated plan display
+│   ├── Stepper.tsx            # Step indicator
+│   ├── StepRole.tsx           # Target-role picker/free-text entry
+│   └── StepSkills.tsx         # Current skills and context form
+├── telemetry/
+│   └── TelemetryAsciiBanner.tsx
+└── ui/
+    └── Button.tsx             # Shared button variants
 lib/
-└── plan/
-    ├── data.ts                # ARCHETYPES, RESOURCES + getters
-    ├── data/
-    │   ├── jobArchetypes.json   # 12 entry-level role archetypes
-    │   └── campusResources.json # 18 curated UCSD opportunities
-    ├── groq.ts                # Groq client + GROQ_MODEL
-    ├── prompt.ts              # System + user prompt for /api/plan
-    ├── skillOptions.ts        # Skill-tag chips shown in step 2
-    └── types.ts               # Zod schemas + shared types
+├── plan/
+│   ├── data/
+│   │   ├── campusResources.json # Curated UCSD opportunities
+│   │   └── jobArchetypes.json   # Entry-level role archetypes
+│   ├── data.ts                # ARCHETYPES, RESOURCES + lookup helpers
+│   ├── groq.ts                # Groq client and model configuration
+│   ├── prompt.ts              # System/user prompts for /api/plan
+│   ├── skillOptions.ts        # Skill-tag chips shown in step 2
+│   └── types.ts               # Zod schemas + shared plan types
+└── utils.ts                   # className merging and small UI helpers
+next.config.ts                 # Next.js config
+package.json                   # npm scripts and dependencies
+postcss.config.mjs             # Tailwind/PostCSS setup
+tsconfig.json                  # TypeScript config
 ```
 
 ## Scope honesty
