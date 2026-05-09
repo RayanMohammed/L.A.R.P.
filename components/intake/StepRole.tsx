@@ -9,7 +9,7 @@ import {
   tArchetypeTimelineShort,
 } from "@/lib/i18n/dataTranslations";
 import { type Language, t } from "@/lib/i18n/translations";
-import { ARCHETYPES } from "@/lib/plan/data";
+import { ARCHETYPES } from "@/lib/plan/catalog";
 
 type StepRoleProps = {
   initialRoleId: string | null;

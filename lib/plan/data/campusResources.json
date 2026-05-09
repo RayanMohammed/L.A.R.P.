@@ -13,7 +13,7 @@
     "type": "internship-lite",
     "description": "Student-run pro-bono software consultancy: small teams build real apps for nonprofit clients across a 6–9 month engagement. Application-only, looks like a real internship on a resume because it is one.",
     "skillsItBuilds": ["full-stack web development", "client communication", "scoping requirements", "agile sprints", "deploying to production"],
-    "url": "https://tse.ucsd.edu/"
+    "url": "https://tritonse.github.io/"
   },
   {
     "id": "ai-student-collective",
