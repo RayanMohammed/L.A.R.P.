@@ -4,6 +4,7 @@ import { getArchetype, getResource, getTopResources } from "@/lib/plan/data";
 import { GROQ_MODEL, getGroq } from "@/lib/plan/groq";
 import { buildUserPrompt, SYSTEM_PROMPT } from "@/lib/plan/prompt";
 import { researchFreeTextRole } from "@/lib/plan/roleResearch";
+import { redactPlanRequest } from "@/lib/plan/redactPii";
 import {
   type ActionItem,
   LlmPlanSchema,
@@ -32,12 +33,20 @@ export async function POST(req: Request) {
     );
   }
 
-  const archetype = parsed.targetRoleId
-    ? getArchetype(parsed.targetRoleId) ?? null
-    : null;
-  if (parsed.targetRoleId && !archetype) {
+  const request = redactPlanRequest(parsed);
+  if (!request.targetRoleId && !request.targetRoleFreeText?.trim()) {
     return NextResponse.json(
-      { error: "unknown_target_role", targetRoleId: parsed.targetRoleId },
+      { error: "target_text_only_sensitive_removed" },
+      { status: 400 },
+    );
+  }
+
+  const archetype = request.targetRoleId
+    ? getArchetype(request.targetRoleId) ?? null
+    : null;
+  if (request.targetRoleId && !archetype) {
+    return NextResponse.json(
+      { error: "unknown_target_role", targetRoleId: request.targetRoleId },
       { status: 400 },
     );
   }
@@ -60,8 +69,8 @@ export async function POST(req: Request) {
   // hallucinated requirements with real entry-level signals from the web.
   // Never throws — degrades to an LLM-only or minimal context on failure.
   const enrichedRole =
-    !archetype && parsed.targetRoleFreeText
-      ? await researchFreeTextRole(parsed.targetRoleFreeText)
+    !archetype && request.targetRoleFreeText
+      ? await researchFreeTextRole(request.targetRoleFreeText)
       : null;
 
   // Pre-filter the resource catalog with semantic search so we only send the
@@ -74,16 +83,16 @@ export async function POST(req: Request) {
     ? `${archetype.name}: ${archetype.summary}`
     : enrichedRole
       ? `${enrichedRole.rawInput}: ${enrichedRole.roleSummary}`
-      : parsed.targetRoleFreeText ?? "";
+      : request.targetRoleFreeText ?? "";
 
   const filteredResources = await getTopResources({
     roleDescription,
-    currentSkills: parsed.currentSkills,
+    currentSkills: request.currentSkills,
     topK: 6,
   });
 
   const userPrompt = buildUserPrompt({
-    request: parsed,
+    request,
     archetype,
     enrichedRole,
     resources: filteredResources,
@@ -175,7 +184,7 @@ export async function POST(req: Request) {
   const response: PlanResponse = {
     archetype:
       archetype ?? {
-        name: parsed.targetRoleFreeText ?? "Custom target role",
+        name: request.targetRoleFreeText ?? "Custom target role",
         summary: "Free-text target role provided by the student.",
       },
     summary: plan.data.summary,

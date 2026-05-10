@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { PrivacyGuardrails } from "@/components/intake/PrivacyGuardrails";
 import { tSkillOption } from "@/lib/i18n/dataTranslations";
 import { tCareerFieldCard } from "@/lib/i18n/fieldTranslations";
 import {
@@ -158,6 +159,7 @@ export function StepSkills({
         <span className="font-label text-xs font-bold uppercase tracking-[0.18em] text-muted-strong">
           {t("contextLabel", language)}
         </span>
+        <PrivacyGuardrails language={language} />
         <textarea
           value={context}
           onChange={(e) => setContext(e.target.value)}
@@ -165,6 +167,9 @@ export function StepSkills({
           rows={3}
           className="w-full resize-y border border-border bg-panel p-4 font-mono text-base text-foreground placeholder:text-muted/70 focus:border-cyber focus:outline-none"
         />
+        <p className="font-mono text-xs leading-relaxed text-muted">
+          {t("privacyHintShort", language)}
+        </p>
       </label>
 
       <div className="flex items-center justify-between">

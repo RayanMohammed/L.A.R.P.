@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { PrivacyGuardrails } from "@/components/intake/PrivacyGuardrails";
 import { tCareerFieldCard } from "@/lib/i18n/fieldTranslations";
 import { type Language, t } from "@/lib/i18n/translations";
 import { CAREER_FIELDS, type CareerField } from "@/lib/plan/fields";
@@ -102,6 +103,7 @@ export function StepRole({
             <span className="font-label text-xs font-bold uppercase tracking-[0.18em] text-muted-strong">
               {t("step1FreeTextLabel", language)}
             </span>
+            <PrivacyGuardrails language={language} />
             <textarea
               value={freeText}
               onChange={(e) => {
@@ -112,6 +114,9 @@ export function StepRole({
               rows={2}
               className="w-full resize-y border border-border bg-bg p-4 font-mono text-base text-foreground placeholder:text-muted/70 focus:border-cyber focus:outline-none"
             />
+            <p className="font-mono text-xs leading-relaxed text-muted">
+              {t("privacyHintShort", language)}
+            </p>
           </label>
         ) : (
           <button

@@ -167,6 +167,8 @@ function humanizeError(code: string): string {
       return "The model didn't pick valid campus resources. Try again.";
     case "invalid_request":
       return "Something about the form input was off. Try again.";
+    case "target_text_only_sensitive_removed":
+      return "That description was only contact or ID-style text. Add a few words about the role you want.";
     default:
       return "Something went wrong generating your plan. Try again.";
   }

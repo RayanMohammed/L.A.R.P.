@@ -41,6 +41,17 @@ export const translations = {
     contextLabel: "Anything else worth knowing?",
     contextPlaceholder:
       "Optional. e.g. 'I'm a transfer student' or 'I already have an internship lined up but want a stretch role'",
+    privacyHintShort:
+      "Privacy: don't type emails, phone numbers, or IDs. Obvious patterns are stripped before the AI sees them.",
+    privacyGuardrailsAria: "Privacy — do not include in your answer",
+    privacyGuardrailsTitle: "Do not include",
+    privacyGuardrailItem1:
+      "Your full name, student / employee ID, or email address",
+    privacyGuardrailItem2: "Phone numbers or personal social handles",
+    privacyGuardrailItem3:
+      "Passwords, PINs, bank details, or your full street address",
+    privacyGuardrailItem4:
+      "Government ID or tax numbers (e.g. SSN), passport, or visa numbers",
     chipFirstYear: "I'm a first year",
     chipSwitchingMajors: "I'm switching majors",
     chipTransfer: "I'm a transfer student",
@@ -169,6 +180,18 @@ export const translations = {
     contextLabel: "¿Algo más que debamos saber?",
     contextPlaceholder:
       "Opcional. Ejemplo: 'Soy estudiante de transferencia' o 'Ya tengo una pasantía, pero quiero un rol más ambicioso'",
+    privacyHintShort:
+      "Privacidad: no escribas correos, teléfonos ni identificadores. Los patrones obvios se eliminan antes de enviar el texto al modelo.",
+    privacyGuardrailsAria: "Privacidad — no incluir en tu respuesta",
+    privacyGuardrailsTitle: "No incluyas",
+    privacyGuardrailItem1:
+      "Tu nombre completo, ID estudiantil/laboral o correo electrónico",
+    privacyGuardrailItem2:
+      "Números de teléfono o perfiles personales en redes",
+    privacyGuardrailItem3:
+      "Contraseñas, PINs, datos bancarios o tu dirección completa",
+    privacyGuardrailItem4:
+      "Documentos de identidad o fiscales (ej. SSN), pasaporte o visa",
     chipFirstYear: "Soy de primer año",
     chipSwitchingMajors: "Estoy cambiando de carrera",
     chipTransfer: "Soy estudiante de transferencia",
