@@ -14,15 +14,16 @@ export const translations = {
     telemetryAcronym: "Learn, Apply, Reflect, Progress",
 
     // Stepper
-    stepperPickTarget: "Pick a target",
+    stepperPickTarget: "Pick a field",
     stepperMapWhatYouHave: "Map what you have",
-    stepperYourWeek: "Your week",
+    stepperYourWeek: "Dashboard",
 
-    // Step 1 — role
+    // Step 1 — role / track picker
     step1Eyebrow: "Step 01 / Target",
     step1Heading: "Pick a direction — you can always change it.",
     step1Subheading:
-      "Pick one. You don't have to be sure — we just need somewhere to start.",
+      "Pick the broad lane that feels closest. You can specialize later; this just shapes the questions and dashboard.",
+    step1PathsWord: "paths",
     step1FreeTextLabel: "Or describe it in your own words",
     step1FreeTextPlaceholder: "e.g. something where I get paid to write or research",
     step1NoneFitButton: "None of these fit — let me describe it",
@@ -31,14 +32,16 @@ export const translations = {
     // Step 2 — skills
     step2Eyebrow: "Step 02 / Inputs",
     step2Heading: "What have you done so far?",
-    step2Subheading:
-      "Tap anything that's true. Nothing yet is a real answer — first quarter is allowed to be empty.",
+    step2SubheadingPrefix: "Tap anything that's true for ",
+    step2SubheadingSuffix:
+      ". Nothing yet is a real answer — first quarter is allowed to be empty.",
     step2Back: "← Back",
     step2GeneratePlan: "Generate plan →",
-    quickContextLabel: "Anything that describes you?",
+    quickContextLabel: "Which best describes you?",
     contextLabel: "Anything else worth knowing?",
     contextPlaceholder:
       "Optional. e.g. 'I'm a transfer student' or 'I already have an internship lined up but want a stretch role'",
+    chipFirstYear: "I'm a first year",
     chipSwitchingMajors: "I'm switching majors",
     chipTransfer: "I'm a transfer student",
     chipFirstGen: "I'm first-gen",
@@ -53,6 +56,9 @@ export const translations = {
     skillGroupWorkMoney: "Work & money",
     skillGroupToolsMisc: "Tools & misc",
     skillGroupHonestAnswers: "Honest answers",
+    skillGroupTransferableSignals: "Transferable signals",
+    skillGroupUnsurePickOne:
+      "If you're not sure, it's okay to click one of these options.",
 
     // Loading state
     loading1: "Reading the role…",
@@ -135,15 +141,16 @@ export const translations = {
     telemetryAcronym: "Aprende, Aplica, Reflexiona, Progresa",
 
     // Stepper
-    stepperPickTarget: "Elige una meta",
+    stepperPickTarget: "Elige un campo",
     stepperMapWhatYouHave: "Mapea lo que tienes",
-    stepperYourWeek: "Tu semana",
+    stepperYourWeek: "Panel",
 
-    // Step 1 — role
+    // Step 1 — role / track picker
     step1Eyebrow: "Paso 01 / Objetivo",
     step1Heading: "Elige una dirección — siempre puedes cambiarla.",
     step1Subheading:
-      "Elige una. No tienes que estar seguro — solo necesitamos un punto de partida.",
+      "Elige el carril amplio que más encaje. Luego te especializas; esto solo orienta las preguntas y el panel.",
+    step1PathsWord: "caminos",
     step1FreeTextLabel: "O descríbelo con tus propias palabras",
     step1FreeTextPlaceholder:
       "ej. algo donde me paguen por escribir o investigar",
@@ -153,14 +160,16 @@ export const translations = {
     // Step 2 — skills
     step2Eyebrow: "Paso 02 / Entradas",
     step2Heading: "¿Qué has hecho hasta ahora?",
-    step2Subheading:
-      "Marca lo que sea verdad. Nada todavía es una respuesta válida — el primer trimestre puede estar vacío.",
+    step2SubheadingPrefix: "Marca lo que sea verdad para ",
+    step2SubheadingSuffix:
+      ". Nada todavía es una respuesta válida — el primer trimestre puede estar vacío.",
     step2Back: "← Atrás",
     step2GeneratePlan: "Generar plan →",
-    quickContextLabel: "¿Algo que nos ayude a conocerte mejor?",
+    quickContextLabel: "¿Cuál te describe mejor?",
     contextLabel: "¿Algo más que debamos saber?",
     contextPlaceholder:
       "Opcional. Ejemplo: 'Soy estudiante de transferencia' o 'Ya tengo una pasantía, pero quiero un rol más ambicioso'",
+    chipFirstYear: "Soy de primer año",
     chipSwitchingMajors: "Estoy cambiando de carrera",
     chipTransfer: "Soy estudiante de transferencia",
     chipFirstGen: "Soy primera generación",
@@ -175,6 +184,9 @@ export const translations = {
     skillGroupWorkMoney: "Trabajo y dinero",
     skillGroupToolsMisc: "Herramientas y otros",
     skillGroupHonestAnswers: "Respuestas honestas",
+    skillGroupTransferableSignals: "Señales transferibles",
+    skillGroupUnsurePickOne:
+      "Si no estás seguro, está bien elegir una de estas opciones.",
 
     // Loading state
     loading1: "Leyendo el rol…",
@@ -264,6 +276,9 @@ const SKILL_GROUP_LABEL_TO_KEY: Record<string, TranslationKey> = {
   "Work & money": "skillGroupWorkMoney",
   "Tools & misc": "skillGroupToolsMisc",
   "Honest answers": "skillGroupHonestAnswers",
+  "Transferable signals": "skillGroupTransferableSignals",
+  "If you're not sure, it's okay to click one of these options.":
+    "skillGroupUnsurePickOne",
 };
 
 export function tSkillGroupLabel(label: string, language: Language): string {

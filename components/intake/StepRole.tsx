@@ -2,14 +2,9 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
-import {
-  tArchetypeJargonNote,
-  tArchetypeName,
-  tArchetypeSummary,
-  tArchetypeTimelineShort,
-} from "@/lib/i18n/dataTranslations";
+import { tCareerFieldCard } from "@/lib/i18n/fieldTranslations";
 import { type Language, t } from "@/lib/i18n/translations";
-import { ARCHETYPES } from "@/lib/plan/catalog";
+import { CAREER_FIELDS, type CareerField } from "@/lib/plan/fields";
 
 type StepRoleProps = {
   initialRoleId: string | null;
@@ -17,6 +12,14 @@ type StepRoleProps = {
   language?: Language;
   onSubmit: (value: { roleId: string | null; freeText: string }) => void;
 };
+
+function isTrackSelected(field: CareerField, roleId: string | null): boolean {
+  if (!roleId) return false;
+  return (
+    field.defaultArchetypeId === roleId ||
+    field.relatedArchetypeIds.includes(roleId)
+  );
+}
 
 export function StepRole({
   initialRoleId,
@@ -44,43 +47,49 @@ export function StepRole({
         </p>
       </header>
 
-      <ul className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
-        {ARCHETYPES.map((a) => {
-          const selected = roleId === a.id;
-          const jargonNote = tArchetypeJargonNote(a, language);
+      <ul className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
+        {CAREER_FIELDS.map((field) => {
+          const selected = isTrackSelected(field, roleId);
+          const copy = tCareerFieldCard(field, language);
+          const pathCount = copy.sampleRoles.length;
           return (
-            <li key={a.id}>
+            <li key={field.id}>
               <button
                 type="button"
                 onClick={() => {
-                  setRoleId(a.id);
+                  setRoleId(field.defaultArchetypeId);
                   if (showFreeText) setFreeText("");
                 }}
                 aria-pressed={selected}
                 className={[
-                  "h-full w-full border bg-panel px-5 py-4 text-left transition-colors",
+                  "flex h-full min-h-[11rem] w-full flex-col border bg-panel px-5 py-4 text-left transition-colors",
                   "hover:border-cyber hover:bg-surface-2",
                   selected
                     ? "border-cyber bg-cyber-dim shadow-[0_0_18px_rgba(100,149,237,0.18)]"
                     : "border-border",
                 ].join(" ")}
               >
-                <div className="flex items-baseline justify-between gap-2">
-                  <span className="text-lg font-medium text-foreground">
-                    {tArchetypeName(a, language)}
+                <div className="flex items-start justify-between gap-3">
+                  <span className="text-lg font-semibold text-foreground">
+                    {copy.name}
                   </span>
-                  <span className="font-label text-xs font-semibold uppercase tracking-wider text-muted">
-                    {tArchetypeTimelineShort(a, language)}
+                  <span className="shrink-0 uppercase font-label text-[10px] font-semibold tracking-[0.14em] text-muted">
+                    {pathCount} {t("step1PathsWord", language)}
                   </span>
                 </div>
-                <ul className="mt-3 list-disc space-y-1.5 pl-5 text-base leading-snug text-muted">
-                  <li>{tArchetypeSummary(a, language)}</li>
-                  {jargonNote ? (
-                    <li className="font-mono text-sm italic text-muted/70">
-                      {jargonNote}
-                    </li>
-                  ) : null}
-                </ul>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-strong [text-wrap:pretty]">
+                  {copy.summary}
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {copy.sampleRoles.map((role) => (
+                    <span
+                      key={`${field.id}-${role}`}
+                      className="border border-border bg-bg/80 px-2 py-1 font-mono text-[11px] font-medium text-muted-strong"
+                    >
+                      {role}
+                    </span>
+                  ))}
+                </div>
               </button>
             </li>
           );

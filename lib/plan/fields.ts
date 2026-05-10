@@ -32,10 +32,10 @@ export const CAREER_FIELDS: CareerField[] = [
     summary:
       "Builds models, pitches, and market judgment for banking, investing, corporate finance, and consulting-adjacent work.",
     sampleRoles: [
-      "Finance analyst",
-      "Investment banking analyst",
-      "Corporate finance intern",
-      "Consulting analyst",
+      "Finance Analyst",
+      "Investment Banking Analyst",
+      "Corporate Finance Intern",
+      "Consulting Analyst",
     ],
     defaultArchetypeId: "finance-analyst-intern",
     relatedArchetypeIds: ["finance-analyst-intern", "consulting-intern"],
@@ -77,10 +77,10 @@ export const CAREER_FIELDS: CareerField[] = [
     summary:
       "Turns messy information into analysis, dashboards, experiments, and recommendations people can act on.",
     sampleRoles: [
-      "Data analyst",
-      "Data scientist",
-      "Analytics engineer",
-      "ML intern",
+      "Data Analyst",
+      "Data Scientist",
+      "Analytics Engineer",
+      "ML Intern",
     ],
     defaultArchetypeId: "data-analyst-intern",
     relatedArchetypeIds: ["data-analyst-intern", "ds-ml-intern"],
@@ -122,10 +122,10 @@ export const CAREER_FIELDS: CareerField[] = [
     summary:
       "Builds products and systems with code: web apps, backend services, developer tools, and production features.",
     sampleRoles: [
-      "Software engineering intern",
-      "Full-stack intern",
-      "Backend intern",
-      "DevOps intern",
+      "Software Engineering Intern",
+      "Full-Stack Intern",
+      "Backend Intern",
+      "DevOps Intern",
     ],
     defaultArchetypeId: "swe-intern",
     relatedArchetypeIds: ["swe-intern", "devops-intern", "pm-intern"],
@@ -167,10 +167,10 @@ export const CAREER_FIELDS: CareerField[] = [
     summary:
       "Works with physical systems: circuits, embedded software, robotics, sensors, PCBs, and mechanical builds.",
     sampleRoles: [
-      "Hardware intern",
-      "Embedded systems intern",
-      "Robotics intern",
-      "Electrical engineering intern",
+      "Hardware Intern",
+      "Embedded Systems Intern",
+      "Robotics Intern",
+      "Electrical Engineering Intern",
     ],
     defaultArchetypeId: "hardware-intern",
     relatedArchetypeIds: ["hardware-intern", "swe-intern"],
@@ -212,10 +212,10 @@ export const CAREER_FIELDS: CareerField[] = [
     summary:
       "Builds trust with people and communities through programs, events, education, marketing, and service work.",
     sampleRoles: [
-      "Community program intern",
-      "Marketing intern",
-      "Education intern",
-      "Bilingual outreach intern",
+      "Community Program Intern",
+      "Marketing Intern",
+      "Education Intern",
+      "Bilingual Outreach Intern",
     ],
     defaultArchetypeId: "nonprofit-intern",
     relatedArchetypeIds: [
@@ -262,10 +262,10 @@ export const CAREER_FIELDS: CareerField[] = [
     summary:
       "Connects biology, engineering, and research through labs, protocols, biotech tools, and health-focused projects.",
     sampleRoles: [
-      "Bioengineering intern",
-      "Wet-lab research assistant",
-      "Healthcare research intern",
-      "Bioinformatics intern",
+      "Bioengineering Intern",
+      "Wet-Lab Research Assistant",
+      "Healthcare Research Intern",
+      "Bioinformatics Intern",
     ],
     defaultArchetypeId: "bio-research-intern",
     relatedArchetypeIds: [

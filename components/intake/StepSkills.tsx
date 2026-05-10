@@ -3,16 +3,23 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { tSkillOption } from "@/lib/i18n/dataTranslations";
+import { tCareerFieldCard } from "@/lib/i18n/fieldTranslations";
 import {
   type Language,
   t,
   tSkillGroupLabel,
   type TranslationKey,
 } from "@/lib/i18n/translations";
-import type { FieldId } from "@/lib/plan/fields";
+import {
+  CAREER_FIELDS,
+  DEFAULT_FIELD_ID,
+  getCareerField,
+  type FieldId,
+} from "@/lib/plan/fields";
 import { getSkillGroupsForField } from "@/lib/plan/skillOptions";
 
 const QUICK_CONTEXT_CHIPS = [
+  "chipFirstYear",
   "chipSwitchingMajors",
   "chipTransfer",
   "chipFirstGen",
@@ -43,6 +50,11 @@ export function StepSkills({
   // Skill groups follow the chosen field. Free-text role → null → falls back
   // to the default field's groups + shared groups inside getSkillGroupsForField.
   const skillGroups = getSkillGroupsForField(fieldId);
+  const field =
+    getCareerField(fieldId) ??
+    getCareerField(DEFAULT_FIELD_ID) ??
+    CAREER_FIELDS[0];
+  const trackLabel = tCareerFieldCard(field, language).name;
 
   function toggle(value: string) {
     setSelected((prev) => {
@@ -77,11 +89,41 @@ export function StepSkills({
           {t("step2Heading", language)}
         </h2>
         <p className="max-w-3xl font-mono text-base leading-relaxed text-muted-strong">
-          {t("step2Subheading", language)}
+          {t("step2SubheadingPrefix", language)}
+          <span className="text-foreground">{trackLabel}</span>
+          {t("step2SubheadingSuffix", language)}
         </p>
       </header>
 
       <div className="space-y-6">
+        <fieldset className="space-y-3">
+          <legend className="font-label text-xs font-bold uppercase tracking-[0.18em] text-muted-strong">
+            {t("quickContextLabel", language)}
+          </legend>
+          <div className="flex flex-wrap gap-2.5">
+            {QUICK_CONTEXT_CHIPS.map((key) => {
+              const label = t(key, language);
+              const active = context.includes(label);
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => toggleContextChip(label)}
+                  aria-pressed={active}
+                  className={[
+                    "border px-4 py-2 font-mono text-sm transition-colors",
+                    active
+                      ? "border-cyber bg-cyber-dim text-cyber-bright"
+                      : "border-border bg-panel text-muted-strong hover:border-cyber/60 hover:text-foreground",
+                  ].join(" ")}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        </fieldset>
+
         {skillGroups.map((group) => (
           <fieldset key={group.label} className="space-y-3">
             <legend className="font-label text-xs font-bold uppercase tracking-[0.18em] text-muted-strong">
@@ -110,34 +152,6 @@ export function StepSkills({
             </div>
           </fieldset>
         ))}
-      </div>
-
-      <div className="space-y-2">
-        <span className="font-label text-xs font-bold uppercase tracking-[0.18em] text-muted-strong">
-          {t("quickContextLabel", language)}
-        </span>
-        <div className="flex flex-wrap gap-2.5">
-          {QUICK_CONTEXT_CHIPS.map((key) => {
-            const label = t(key, language);
-            const active = context.includes(label);
-            return (
-              <button
-                key={key}
-                type="button"
-                onClick={() => toggleContextChip(label)}
-                aria-pressed={active}
-                className={[
-                  "border px-4 py-2 font-mono text-sm transition-colors",
-                  active
-                    ? "border-cyber bg-cyber-dim text-cyber-bright"
-                    : "border-border bg-panel text-muted-strong hover:border-cyber/60 hover:text-foreground",
-                ].join(" ")}
-              >
-                {label}
-              </button>
-            );
-          })}
-        </div>
       </div>
 
       <label className="block space-y-2">

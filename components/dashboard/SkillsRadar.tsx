@@ -31,11 +31,11 @@ const STOP_WORDS = new Set([
 ]);
 
 /** Center + radius tuned so outer labels fit without clipping */
-const CX = 150;
-const CY = 140;
-const R = 58;
+const CX = 200;
+const CY = 182;
+const R = 86;
 /** Labels sit outside the outer ring */
-const LABEL_R = R + 26;
+const LABEL_R = R + 34;
 
 function wordsFrom(text: string): string[] {
   return text
@@ -148,10 +148,10 @@ export function SkillsRadar({
   return (
     <div className="space-y-3">
       <svg
-        viewBox="0 0 300 280"
+        viewBox="0 0 400 364"
         role="img"
         aria-label="Radar chart comparing industry skills needed against your selected skills"
-        className="mx-auto block w-full max-w-[280px] overflow-visible"
+        className="mx-auto block w-full max-w-[min(100%,420px)] overflow-visible sm:max-w-[440px]"
       >
         {[0.25, 0.5, 0.75, 1].map((rad) => (
           <polygon
@@ -212,7 +212,7 @@ export function SkillsRadar({
               textAnchor={textAnchor}
               dominantBaseline="middle"
               className="fill-muted-strong font-mono"
-              style={{ fontSize: "8.5px" }}
+              style={{ fontSize: "10px" }}
             >
               {abbreviate(skill, 22)}
             </text>
